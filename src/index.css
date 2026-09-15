@@ -1,0 +1,7557 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+ 
+* {
+  box-sizing: border-box;
+}
+ 
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+ 
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  overflow: hidden;
+}
+ 
+button {
+  font-family: inherit;
+}
+ 
+ 
+/* =========================================================
+   LOGIN PAGE
+========================================================= */
+ 
+.login-page {
+  width: 100vw;
+  height: 100vh;
+ 
+  display: grid;
+ 
+  grid-template-columns: 52% 48%;
+  grid-template-rows: 1fr 40px;
+ 
+  overflow: hidden;
+ 
+  background: #f7faf9;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - LEFT
+========================================================= */
+ 
+.login-left {
+  position: relative;
+ 
+  grid-column: 1;
+  grid-row: 1;
+ 
+  overflow: hidden;
+ 
+  padding-left: 7%;
+  padding-top: 6%;
+ 
+  background:
+    radial-gradient(
+      ellipse 85% 55% at 0% 0%,
+      #dcefdc 0%,
+      #edf7ef 42%,
+      #f7faf9 72%
+    );
+}
+ 
+ 
+/* =========================================================
+   LOGIN - TOP GREEN SHAPE
+========================================================= */
+ 
+.login-left::before {
+  content: "";
+ 
+  position: absolute;
+ 
+  top: -90px;
+  left: -80px;
+ 
+  width: 72%;
+  height: 255px;
+ 
+  background: rgba(218, 239, 220, 0.8);
+ 
+  border-radius: 0 0 70% 0;
+ 
+  transform: rotate(-3deg);
+ 
+  z-index: 0;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - BRAND
+   KEEPING MIRAFRA IN ORIGINAL POSITION
+========================================================= */
+ 
+.brand {
+  position: relative;
+ 
+  z-index: 5;
+ 
+  width: fit-content;
+}
+ 
+ 
+/* Mirafra logo */
+ 
+.mirafra-logo {
+  font-size: 38px;
+  line-height: 31px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #159447;
+}
+
+.technologies {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 12px;
+  letter-spacing: 2.7px;
+  color: #59646f;
+  margin-left: -1.5px;
+}
+ 
+/* =========================================================
+   LOGIN - LEFT CONTENT
+   CENTERED HORIZONTALLY
+========================================================= */
+ 
+.left-content {
+  position: relative;
+ 
+  z-index: 5;
+ 
+  /*
+    This is the important part.
+    The content gets its own full width and
+    is centered inside the left 52% section.
+  */
+ 
+  width: 100%;
+ 
+  max-width: 620px;
+ 
+  margin-top: 65px;
+ 
+  margin-left: auto;
+  margin-right: auto;
+ 
+  text-align: left;
+ 
+  /*
+    Offset the content slightly because the logo
+    remains at the original left position.
+  */
+}
+ 
+ 
+/* =========================================================
+   LOGIN - INTELLIHIRE
+========================================================= */
+ 
+.left-content h1 {
+  margin: 0;
+ 
+  font-size: 54px;
+ 
+  line-height: 1;
+ 
+  font-weight: 700;
+ 
+  letter-spacing: -2px;
+ 
+  color: #111820;
+}
+ 
+.left-content h1 span {
+  color: #159447;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - SUBTITLE
+========================================================= */
+ 
+.left-content h2 {
+  margin: 10px 0 0;
+ 
+  font-size: 22px;
+ 
+  line-height: 28px;
+ 
+  font-weight: 500;
+ 
+  color: #3f4a56;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - GREEN LINE
+========================================================= */
+ 
+.green-line {
+  width: 44px;
+ 
+  height: 4px;
+ 
+  margin-top: 20px;
+ 
+  margin-bottom: 17px;
+ 
+  background: #159447;
+ 
+  border-radius: 4px;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - DESCRIPTION
+========================================================= */
+ 
+.description {
+  margin: 0;
+ 
+  width: 350px;
+ 
+  font-size: 14px;
+ 
+  line-height: 21px;
+ 
+  color: #46515d;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - FEATURES
+========================================================= */
+ 
+.feature {
+  display: flex;
+ 
+  align-items: center;
+ 
+  width: 390px;
+ 
+  margin-top: 17px;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - FEATURE ICON
+========================================================= */
+ 
+.login-feature-icon {
+  width: 46px;
+ 
+  height: 46px;
+ 
+  min-width: 46px;
+ 
+  border-radius: 50%;
+ 
+  background: #e7f5e9;
+ 
+  color: #078e45;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - FEATURE TEXT
+========================================================= */
+ 
+.feature-content {
+  position: relative;
+ 
+  margin-left: 16px;
+ 
+  padding-left: 16px;
+}
+ 
+ 
+/* Vertical line */
+ 
+.feature-content::before {
+  content: "";
+ 
+  position: absolute;
+ 
+  left: 0;
+ 
+  top: 1px;
+ 
+  width: 1px;
+ 
+  height: 40px;
+ 
+  background: #d7dfda;
+}
+ 
+ 
+/* Heading */
+ 
+.feature h3 {
+  margin: 0 0 3px;
+ 
+  font-size: 14px;
+ 
+  line-height: 18px;
+ 
+  font-weight: 700;
+ 
+  color: #08783c;
+}
+ 
+ 
+/* Description */
+ 
+.feature p {
+  margin: 0;
+ 
+  font-size: 12px;
+ 
+  line-height: 17px;
+ 
+  color: #4d5864;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - DOTS
+========================================================= */
+ 
+.login-left::after {
+  content: "";
+ 
+  position: absolute;
+ 
+  left: 20px;
+ 
+  bottom: 90px;
+ 
+  width: 55px;
+  height: 100px;
+ 
+  background-image: radial-gradient(
+    circle,
+    #c8ead1 2px,
+    transparent 3px
+  );
+ 
+  background-size: 15px 15px;
+ 
+  opacity: 0.65;
+ 
+  z-index: 1;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - BOTTOM GREEN CURVE
+========================================================= */
+ 
+.bottom-wave {
+  position: absolute;
+ 
+  left: -40px;
+ 
+  bottom: -45px;
+ 
+  width: 620px;
+ 
+  height: 105px;
+ 
+  background: #006b38;
+ 
+  border-radius: 0 100% 0 0;
+ 
+  transform: rotate(4deg);
+ 
+  z-index: 4;
+}
+ 
+ 
+/* White line inside wave */
+ 
+.bottom-wave::after {
+  content: "";
+ 
+  position: absolute;
+ 
+  top: 22px;
+ 
+  left: 0;
+ 
+  width: 500px;
+ 
+  height: 10px;
+ 
+  background: #f7faf9;
+ 
+  border-radius: 0 100% 0 0;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - RIGHT
+========================================================= */
+ 
+.login-right {
+  grid-column: 2;
+  grid-row: 1;
+ 
+  display: flex;
+ 
+  flex-direction: column;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+  padding: 25px 35px;
+ 
+  background: #ffffff;
+ 
+  overflow: hidden;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - CARD
+========================================================= */
+ 
+.login-card {
+  width: 100%;
+ 
+  max-width: 455px;
+ 
+  padding: 38px 40px;
+ 
+  background: #ffffff;
+ 
+  border-radius: 18px;
+ 
+  box-shadow:
+    0 15px 40px rgba(0, 32, 96, 0.09);
+ 
+  text-align: center;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - USER ICON
+========================================================= */
+ 
+.user-icon {
+  width: 82px;
+ 
+  height: 82px;
+ 
+  margin: 0 auto 24px;
+ 
+  border-radius: 50%;
+ 
+  background: #eef8f1;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+  color: #08783c;
+}
+ 
+.user-icon svg {
+  width: 42px;
+  height: 42px;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - CARD TITLE
+========================================================= */
+ 
+.login-card h2 {
+  margin: 0;
+ 
+  font-size: 26px;
+ 
+  line-height: 32px;
+ 
+  font-weight: 700;
+ 
+  color: #075b32;
+}
+ 
+.signin-text {
+  margin: 8px 0 27px;
+ 
+  font-size: 14px;
+ 
+  line-height: 20px;
+ 
+  color: #59636e;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - DIVIDER
+========================================================= */
+ 
+.or-divider {
+  display: flex;
+ 
+  align-items: center;
+ 
+  gap: 13px;
+ 
+  width: 100%;
+ 
+  margin-bottom: 20px;
+}
+ 
+.or-divider span {
+  flex: 1;
+ 
+  height: 1px;
+ 
+  background: #dfe4e8;
+}
+ 
+.or-divider p {
+  margin: 0;
+ 
+  font-size: 13px;
+ 
+  color: #6d7680;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - MICROSOFT BUTTON
+========================================================= */
+ 
+.microsoft-button {
+  width: 100%;
+ 
+  height: 51px;
+ 
+  border: none;
+ 
+  border-radius: 8px;
+ 
+  background: #08783c;
+ 
+  color: #ffffff;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+  gap: 14px;
+ 
+  font-family: inherit;
+ 
+  font-size: 16px;
+ 
+  font-weight: 600;
+ 
+  cursor: pointer;
+}
+ 
+.microsoft-button:hover {
+  background: #066a35;
+}
+ 
+ 
+/* Microsoft logo */
+ 
+.microsoft-logo {
+  width: 21px;
+ 
+  height: 21px;
+ 
+  display: grid;
+ 
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+ 
+  gap: 2px;
+}
+ 
+.microsoft-logo span:nth-child(1) {
+  background: #f25022;
+}
+ 
+.microsoft-logo span:nth-child(2) {
+  background: #7fba00;
+}
+ 
+.microsoft-logo span:nth-child(3) {
+  background: #00a4ef;
+}
+ 
+.microsoft-logo span:nth-child(4) {
+  background: #ffb900;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - SECURITY
+========================================================= */
+ 
+.security-message {
+  width: 100%;
+ 
+  min-height: 64px;
+ 
+  margin-top: 20px;
+ 
+  padding: 12px 15px;
+ 
+  border-radius: 11px;
+ 
+  background: #edf8ed;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  gap: 12px;
+ 
+  text-align: left;
+}
+ 
+.lock-icon {
+  width: 30px;
+ 
+  min-width: 30px;
+ 
+  height: 30px;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+  color: #08783c;
+}
+ 
+.security-message p {
+  margin: 0;
+ 
+  font-size: 12px;
+ 
+  line-height: 18px;
+ 
+  color: #37434d;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - SUPPORT
+========================================================= */
+ 
+.support {
+  margin-top: 20px;
+ 
+  font-size: 12px;
+ 
+  color: #525d68;
+}
+ 
+.support span {
+  color: #08783c;
+ 
+  font-weight: 600;
+}
+ 
+ 
+/* =========================================================
+   LOGIN - FOOTER
+========================================================= */
+ 
+.login-footer {
+  grid-column: 1 / -1;
+ 
+  grid-row: 2;
+ 
+  height: 40px;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+  background: #006b38;
+ 
+  color: #ffffff;
+ 
+  font-size: 11px;
+ 
+  position: relative;
+ 
+  z-index: 20;
+}
+ 
+ 
+/* =========================================================
+   LAPTOP
+========================================================= */
+ 
+@media (max-width: 1400px) and (min-width: 901px) {
+ 
+  .login-left {
+    padding-left: 7%;
+    padding-top: 5%;
+  }
+ 
+  .brand {
+    transform: scale(0.92);
+    transform-origin: left top;
+  }
+ 
+  /*
+    Keep IntelliHire centered within left section
+  */
+ 
+  .left-content {
+    width: 100%;
+    max-width: 560px;
+ 
+    margin-top: 52px;
+ 
+    margin-left: auto;
+    margin-right: auto;
+  }
+ 
+  .left-content h1 {
+    font-size: 50px;
+  }
+ 
+  .left-content h2 {
+    font-size: 20px;
+  }
+ 
+  .description {
+    width: 325px;
+ 
+    font-size: 13px;
+    line-height: 19px;
+  }
+ 
+  .feature {
+    width: 350px;
+    margin-top: 14px;
+  }
+ 
+  .login-feature-icon {
+    width: 43px;
+    height: 43px;
+    min-width: 43px;
+  }
+ 
+  .feature h3 {
+    font-size: 13px;
+  }
+ 
+  .feature p {
+    font-size: 11px;
+  }
+ 
+  .login-card {
+    max-width: 430px;
+    padding: 32px 36px;
+  }
+}
+ 
+ 
+/* =========================================================
+   SMALL LAPTOP HEIGHT
+========================================================= */
+ 
+@media (max-width: 1400px) and (max-height: 800px) and (min-width: 901px) {
+ 
+  .login-left {
+    padding-top: 35px;
+  }
+ 
+  .left-content {
+    margin-top: 45px;
+ 
+    width: 100%;
+    max-width: 560px;
+ 
+    margin-left: auto;
+    margin-right: auto;
+  }
+ 
+  .left-content h1 {
+    font-size: 48px;
+  }
+ 
+  .left-content h2 {
+    font-size: 19px;
+  }
+ 
+  .green-line {
+    margin-top: 16px;
+    margin-bottom: 14px;
+  }
+ 
+  .feature {
+    margin-top: 11px;
+  }
+ 
+  .login-card {
+    padding-top: 27px;
+    padding-bottom: 27px;
+  }
+ 
+  .user-icon {
+    width: 62px;
+    height: 62px;
+    margin-bottom: 15px;
+  }
+ 
+  .login-card h2 {
+    font-size: 24px;
+  }
+ 
+  .signin-text {
+    margin-bottom: 21px;
+  }
+ 
+  .security-message {
+    margin-top: 16px;
+  }
+ 
+  .support {
+    margin-top: 14px;
+  }
+}
+ 
+ 
+/* =========================================================
+   MOBILE
+========================================================= */
+ 
+@media (max-width: 900px) {
+ 
+  body {
+    overflow: auto;
+  }
+ 
+  .login-page {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+ 
+    display: flex;
+    flex-direction: column;
+ 
+    overflow: visible;
+  }
+ 
+  .login-left {
+    width: 100%;
+ 
+    min-height: 600px;
+ 
+    padding:
+      35px
+      30px
+      70px;
+  }
+ 
+  /*
+    Logo stays at left.
+    IntelliHire content becomes centered.
+  */
+ 
+  .left-content {
+    width: 100%;
+ 
+    max-width: 500px;
+ 
+    margin-top: 50px;
+ 
+    margin-left: auto;
+    margin-right: auto;
+  }
+ 
+  .description {
+    width: 100%;
+  }
+ 
+  .feature {
+    width: 100%;
+  }
+ 
+  .bottom-wave {
+    display: none;
+  }
+ 
+  .login-right {
+    width: 100%;
+ 
+    min-height: 550px;
+ 
+    padding: 35px 25px;
+  }
+ 
+  .login-footer {
+    height: 42px;
+    min-height: 42px;
+  }
+}
+ 
+ 
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+ 
+@media (max-width: 600px) {
+ 
+  .login-left {
+    min-height: 560px;
+ 
+    padding:
+      30px
+      22px
+      60px;
+  }
+ 
+  .left-content {
+    margin-top: 42px;
+ 
+    width: 100%;
+  }
+ 
+  .left-content h1 {
+    font-size: 44px;
+  }
+ 
+  .left-content h2 {
+    font-size: 18px;
+  }
+ 
+  .login-right {
+    min-height: 520px;
+ 
+    padding: 25px 18px;
+  }
+ 
+  .login-card {
+    padding: 28px 22px;
+  }
+}
+ 
+ 
+/* =========================================================
+   HOME PAGE
+========================================================= */
+ 
+.app {
+  min-height: 100vh;
+ 
+  background: #edf8ed;
+ 
+  color: #101c52;
+}
+ 
+ 
+/* =========================================================
+   HOME - NAVBAR
+========================================================= */
+ 
+.navbar {
+  height: 50px;
+ 
+  width: 100%;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+  padding: 0 42px 0 28px;
+ 
+  border-bottom: 1px solid #e5e9f2;
+ 
+  background: #ffffff;
+}
+ 
+.navbar-left {
+  display: flex;
+ 
+  align-items: center;
+ 
+  height: 100%;
+}
+ 
+/* =========================================================
+   HOME - MIRAFRA LOGO
+========================================================= */
+
+.navbar-left .mirafra-logo {
+  width: 125px;
+  line-height: 1;
+}
+
+.mirafra-name {
+  font-size: 30px;
+  line-height: 31px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #159447;
+  margin-top:-5px;
+}
+
+.mirafra-tech {
+  margin-top: 3px;
+  margin-left: -11px;
+
+  font-size: 14px;
+  line-height: 12px;
+  font-weight: 500;
+  letter-spacing: 2.7px;
+
+  color: #59646f;
+}
+.brand-divider {
+  height: 42px;
+ 
+  width: 1px;
+ 
+  background: #d9deea;
+ 
+  margin: 0 28px 0 14px;
+}
+ 
+.intellihire-brand {
+  line-height: 1.15;
+}
+ 
+.intellihire-name {
+  color: #17205b;
+ 
+  font-size: 19px;
+ 
+  font-weight: 700;
+}
+
+.intellihire-name span {
+
+  color: #079447;
+
+}
+ 
+.intellihire-subtitle {
+  color: #17205b;
+ 
+  font-size: 13px;
+ 
+  font-weight: 600;
+ 
+  margin-top: 5px;
+}
+
+  
+
+ 
+/* =========================================================
+   HOME - NAVBAR CENTER
+========================================================= */
+ 
+.navbar-center {
+  display: flex;
+ 
+  align-items: center;
+ 
+  gap: 10px;
+ 
+  margin-left: 110px;
+}
+ 
+.nav-item {
+  height: 50px;
+ 
+  min-width: 160px;
+ 
+  border: none;
+ 
+  background: transparent;
+ 
+  color: #111a50;
+ 
+  font-size: 14px;
+ 
+  font-weight: 600;
+ 
+  cursor: pointer;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+  gap: 10px;
+ 
+  position: relative;
+}
+ 
+.nav-item:hover {
+  color: #079447;
+}
+ 
+.nav-item.active {
+  color: #079447;
+}
+ 
+.nav-item.active::after {
+  content: "";
+ 
+  position: absolute;
+ 
+  bottom: 0;
+ 
+  left: 12px;
+ 
+  right: 12px;
+ 
+  height: 3px;
+ 
+  background: #079447;
+ 
+  border-radius: 3px 3px 0 0;
+}
+ 
+.nav-icon {
+  font-size: 25px;
+  font-weight: 500;
+}
+ 
+ 
+/* =========================================================
+   HOME - NAVBAR RIGHT
+========================================================= */
+ 
+.navbar-right {
+  width: 230px;
+ 
+  height: 100%;
+ 
+  display: flex;
+ 
+  justify-content: flex-end;
+ 
+  align-items: center;
+}
+ 
+.notification-icon {
+  font-size: 27px;
+ 
+  color: #101b50;
+}
+ 
+ 
+/* =========================================================
+   HOME - CONTENT
+========================================================= */
+ 
+.home-content {
+  min-height: calc(100vh - 78px);
+ 
+  padding: 42px 28px;
+}
+ 
+.welcome-section {
+  width: 100%;
+ 
+  display: flex;
+ 
+  align-items: flex-start;
+ 
+  gap: 45px;
+}
+ 
+.welcome-content {
+  flex: 1;
+ 
+  padding: 4px 0 0 0;
+}
+ 
+.welcome-content h1 {
+  font-size: 32px;
+ 
+  color: #111a50;
+ 
+  font-weight: 700;
+ 
+  margin-bottom: 16px;
+  margin-top:-20px;
+  margin-left:80px;
+}
+ 
+.welcome-content h1 span {
+  color: #079447;
+}
+ 
+.welcome-content p {
+  color: #17205b;
+ 
+  font-size: 16px;
+ 
+  font-weight: 500;
+ 
+  margin-bottom: 26px;
+  margin-left:80px;
+}
+ 
+ 
+/* =========================================================
+   HOME - START BUTTON
+========================================================= */
+ 
+.start-button {
+  background: #079447;
+ 
+  color: #ffffff;
+ 
+  border: none;
+ 
+  padding: 14px 27px;
+ 
+  border-radius: 6px;
+ 
+  font-size: 15px;
+ 
+  font-weight: 700;
+ 
+  cursor: pointer;
+  margin-left:80px;
+ 
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+ 
+.start-button:hover {
+  background: #067d3c;
+ 
+  transform: translateY(-2px);
+ 
+  box-shadow: 0 7px 18px rgba(7, 148, 71, 0.22);
+}
+ 
+ 
+/* =========================================================
+   HOME - FEATURE CARDS
+========================================================= */
+ 
+.feature-cards {
+  flex: 1;
+ 
+  display: grid;
+ 
+  grid-template-columns: repeat(3, 1fr);
+ 
+  gap: 14px;
+  margin-top:-35px;
+}
+ 
+.feature-card {
+  min-height: 220px;
+ 
+  border: 1px solid #e5e9f2;
+ 
+  border-radius: 12px;
+ 
+  background: #ffffff;
+ 
+  display: flex;
+ 
+  flex-direction: column;
+ 
+  align-items: center;
+ 
+  text-align: center;
+ 
+  padding: 19px 15px;
+ 
+  box-shadow: 0 3px 12px rgba(20, 40, 80, 0.04);
+  width:180px;
+
+ 
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+ 
+.feature-card:hover {
+  transform: scale(1.06);
+ 
+  box-shadow: 0 12px 30px rgba(20, 40, 80, 0.12);
+ 
+  z-index: 2;
+}
+ 
+ 
+/* =========================================================
+   HOME - FEATURE ICON
+========================================================= */
+ 
+.feature-card .feature-icon {
+  width: 48px;
+ 
+  height: 48px;
+ 
+  border-radius: 10px;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+  font-size: 25px;
+ 
+  margin-bottom: 16px;
+}
+ 
+.feature-icon.purple {
+  background: #7b21e8;
+ 
+  color: white;
+}
+ 
+.feature-icon.blue {
+  background: #1169e8;
+ 
+  color: white;
+}
+ 
+.feature-icon.teal {
+  background: #159da3;
+ 
+  color: white;
+}
+ 
+ 
+/* =========================================================
+   HOME - FEATURE CARD TEXT
+========================================================= */
+ 
+.feature-card h2 {
+  color: #101a52;
+ 
+  font-size: 15px;
+ 
+  line-height: 1.5;
+ 
+  font-weight: 700;
+ 
+  margin-bottom: 14px;
+  margin-top:-5px;
+}
+ 
+.feature-card p {
+  color: #18235b;
+ 
+  font-size: 13px;
+ 
+  line-height: 1.5;
+ 
+  font-weight: 500;
+  margin-top:-10px;
+}
+ 
+ 
+/* =========================================================
+   HOME - RESPONSIVE
+========================================================= */
+ 
+@media (max-width: 1000px) {
+ 
+  .navbar {
+    padding: 0 20px;
+  }
+ 
+  .navbar-center {
+    margin-left: 30px;
+  }
+ 
+  .navbar-right {
+    width: 80px;
+  }
+ 
+  .welcome-section {
+    flex-direction: column;
+  }
+ 
+  .feature-cards {
+    width: 100%;
+  }
+}
+ 
+ 
+@media (max-width: 700px) {
+ 
+  .navbar-center {
+    display: none;
+  }
+ 
+  .feature-cards {
+    grid-template-columns: 1fr;
+  }
+ 
+  .welcome-content h1 {
+    font-size: 27px;
+  }
+}
+/* =========================================================
+   CENTER INTELLIHIRE CONTENT ONLY
+   ========================================================= */
+ 
+.login-left .left-content {
+    position: absolute !important;
+ 
+    left: 60% !important;
+    top: 50% !important;
+ 
+    width: 430px !important;
+ 
+    margin: 0 !important;
+ 
+    transform: translate(-50%, -42%) !important;
+ 
+    z-index: 10 !important;
+}
+
+/* =========================================================
+   INTERVIEW REPORTS - CLEAN COMPACT VERSION
+========================================================= */
+
+.saved-interviews-section {
+  width: 100%;
+  margin: -15px 0 20px;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  box-shadow: none;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 0;
+
+  /*
+   * Keep the Interview Reports section
+   * inside the available screen.
+   */
+  max-height: calc(100vh - 250px);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.saved-interviews-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+
+  width: 100%;
+  padding: 0 0 10px;
+  margin: 0;
+
+  border: none;
+
+  flex-shrink: 0;
+}
+
+.saved-interviews-title {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
+.saved-interviews-title h2 {
+  margin: 0;
+
+  color: #101a52;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.saved-interviews-title p {
+  margin: 0;
+
+  color: #68738a;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+
+/* =========================================================
+   SEARCH / CONTROLS
+========================================================= */
+
+.saved-interviews-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  flex-shrink: 0;
+
+  margin-top: 0;
+}
+.saved-interviews-search {
+  width: 320px;
+  height: 36px;
+
+  padding: 0 10px;
+
+  background: #ffffff;
+  color: #17205b;
+
+  border: 1px solid #dce2eb;
+  border-radius: 6px;
+
+  font-size: 12px;
+  outline: none;
+
+  box-sizing: border-box;
+}
+
+.saved-interviews-search::placeholder {
+  color: #7b8495;
+}
+
+.saved-interviews-search:focus {
+  border-color: #079447;
+}
+
+
+/* =========================================================
+   KPI SECTION
+========================================================= */
+
+.report-statistics {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 14px;
+
+  width: 100%;
+
+  padding: 5px 0 5px;
+ 
+  margin: 0;
+
+  border: none;
+
+  flex-shrink: 0;
+  margin-top:-10px;
+}
+
+
+/* =========================================================
+   KPI CARD
+========================================================= */
+
+.report-stat-card {
+  height: 60px;
+  min-height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  padding: 8px 16px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e9f2;
+  border-radius: 8px;
+
+  transition:
+    box-shadow 0.15s ease;
+}
+
+.report-stat-card:hover {
+  box-shadow:
+    0 3px 10px rgba(20, 40, 80, 0.05);
+}
+
+
+/* =========================================================
+   KPI ICON
+========================================================= */
+
+.report-stat-icon {
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #e7f7eb;
+  color: #079447;
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   KPI TEXT - CENTERED
+========================================================= */
+
+.report-stat-card > div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  min-width: 90px;
+}
+
+
+/* =========================================================
+   KPI LABEL
+========================================================= */
+
+.report-stat-card span {
+  display: block;
+
+  margin: 0 0 3px;
+
+  color: #68738a;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   KPI VALUE
+========================================================= */
+
+.report-stat-card strong {
+  display: block;
+
+  margin: 0;
+
+  color: #101a52;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  line-height: 1.1;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.saved-interviews-table-wrapper {
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  /*
+   * IMPORTANT:
+   * The table area takes the remaining height.
+   */
+  flex: 1;
+
+  min-height: 0;
+  
+
+  /*
+   * Vertical scroll for many interviews.
+   * Horizontal scroll remains available on
+   * smaller screens.
+   */
+  overflow-x: auto;
+  overflow-y: auto;
+
+  border: none;
+
+  scrollbar-width: thin;
+  scrollbar-color: #c7cdd5 transparent;
+}
+
+
+/* =========================================================
+   TABLE SCROLLBAR - CHROME / EDGE
+========================================================= */
+
+.saved-interviews-table-wrapper::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.saved-interviews-table-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.saved-interviews-table-wrapper::-webkit-scrollbar-thumb {
+  background: #c7cdd5;
+
+  border-radius: 10px;
+}
+
+.saved-interviews-table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #aeb6c0;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.saved-interviews-table {
+  width: 100%;
+
+  min-width: 100%;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  table-layout: fixed;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.saved-interviews-table thead {
+  background: #f8fafc;
+}
+
+
+/*
+ * Sticky header:
+ * It remains visible while the rows scroll.
+ */
+
+.saved-interviews-table th {
+  height: 40px;
+
+  padding: 0 18px;
+
+  color: #526078;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-align: left;
+
+  white-space: nowrap;
+
+  border: none;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 5;
+
+  background: #f8fafc;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.saved-interviews-table tbody tr {
+  height: 58px;
+
+  background: #ffffff;
+
+  transition:
+    background 0.15s ease;
+}
+
+.saved-interviews-table tbody tr:hover {
+  background: #fafdfb;
+}
+
+.saved-interviews-table td {
+  height: 58px;
+
+  padding: 8px 18px;
+
+  color: #17205b;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  vertical-align: middle;
+
+  border: none;
+}
+
+
+/* Completely remove row lines */
+
+.saved-interviews-table tbody tr td {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   COLUMN WIDTHS
+   Uses the complete available width
+========================================================= */
+
+.saved-interviews-table th:nth-child(1),
+.saved-interviews-table td:nth-child(1) {
+  width: 25%;
+}
+
+.saved-interviews-table th:nth-child(2),
+.saved-interviews-table td:nth-child(2) {
+  width: 14%;
+}
+
+.saved-interviews-table th:nth-child(3),
+.saved-interviews-table td:nth-child(3) {
+  width: 12%;
+}
+
+.saved-interviews-table th:nth-child(4),
+.saved-interviews-table td:nth-child(4) {
+  width: 17%;
+}
+
+.saved-interviews-table th:nth-child(5),
+.saved-interviews-table td:nth-child(5) {
+  width: 9%;
+}
+
+.saved-interviews-table th:nth-child(6),
+.saved-interviews-table td:nth-child(6) {
+  width: 13%;
+}
+
+.saved-interviews-table th:nth-child(7),
+.saved-interviews-table td:nth-child(7) {
+  width: 10%;
+}
+
+
+/* =========================================================
+   CANDIDATE
+========================================================= */
+
+.saved-candidate {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  min-width: 0;
+}
+
+.saved-candidate-avatar {
+  width: 30px;
+  height: 30px;
+
+  flex: 0 0 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e5f6ea;
+  color: #079447;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.saved-candidate-info {
+  min-width: 0;
+}
+
+.saved-candidate-name {
+  color: #101a52;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.saved-candidate-email {
+  margin-top: 2px;
+
+  color: #7a8497;
+
+  font-size: 10px;
+  font-weight: 500;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   ROLE
+========================================================= */
+
+.saved-role {
+  color: #18235b;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   DOMAIN
+========================================================= */
+
+.saved-domain {
+  color: #526078;
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.saved-date {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.saved-date-main {
+  color: #17205b;
+
+  font-weight: 600;
+}
+
+.saved-date-time {
+  color: #7b8495;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   SCORE
+========================================================= */
+
+.saved-score {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 48px;
+  height: 26px;
+
+  padding: 0 8px;
+
+  border-radius: 6px;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.saved-score.excellent {
+  background: #e3f7e9;
+  color: #07853e;
+}
+
+.saved-score.strong {
+  background: #e8f6ed;
+  color: #159447;
+}
+
+.saved-score.average {
+  background: #fff3d8;
+  color: #bd7b00;
+}
+
+.saved-score.needs-review {
+  background: #ffe7e7;
+  color: #d52d2d;
+}
+
+
+/* =========================================================
+   RECOMMENDATION
+========================================================= */
+
+.saved-recommendation {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 5px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.saved-recommendation.hire {
+  background: #e3f7e9;
+  color: #07853e;
+}
+
+.saved-recommendation.strong-hire {
+  background: #dff5e7;
+  color: #067c39;
+}
+
+.saved-recommendation.consider {
+  background: #fff3d8;
+  color: #a86c00;
+}
+
+.saved-recommendation.no-hire {
+  background: #ffe7e7;
+  color: #c52c2c;
+}
+
+.saved-recommendation.pending {
+  background: #eef1f5;
+  color: #657086;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.saved-interview-actions {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 4px;
+}
+
+.saved-action-button {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 5px;
+
+  background: transparent;
+  color: #17205b;
+
+  cursor: pointer;
+}
+
+.saved-action-button:hover {
+  background: #edf8ed;
+  color: #079447;
+}
+
+.saved-action-button.delete:hover {
+  background: #fff0f0;
+  color: #d52d2d;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.saved-interviews-footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  /*
+   * Footer remains outside the scrolling table.
+   */
+  flex-shrink: 0;
+
+  padding: 8px 0 0;
+  margin: 0;
+
+  background: transparent;
+  border: none;
+}
+
+.saved-interviews-count {
+  color: #68738a;
+
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.saved-interviews-pagination {
+  display: flex;
+
+  align-items: center;
+
+  gap: 4px;
+}
+
+.saved-page-button {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #dce2eb;
+  border-radius: 5px;
+
+  background: #ffffff;
+  color: #17205b;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.saved-page-button:hover {
+  border-color: #079447;
+  color: #079447;
+}
+
+.saved-page-button.active {
+  background: #079447;
+  border-color: #079447;
+  color: #ffffff;
+}
+
+.saved-page-button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.saved-interviews-empty {
+  padding: 32px 20px;
+
+  text-align: center;
+}
+
+.saved-interviews-empty-icon {
+  width: 44px;
+  height: 44px;
+
+  margin: 0 auto 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #edf8ed;
+  color: #079447;
+
+  font-size: 20px;
+}
+
+.saved-interviews-empty h3 {
+  margin: 0 0 5px;
+
+  color: #17205b;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.saved-interviews-empty p {
+  margin: 0;
+
+  color: #7b8495;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   REPORT MODAL
+========================================================= */
+
+.saved-report-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(16, 28, 82, 0.38);
+}
+
+.saved-report-modal {
+  width: min(900px, 92vw);
+
+  max-height: 88vh;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 20px 60px rgba(15, 30, 70, 0.22);
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.saved-report-modal-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 15px 20px;
+
+  border-bottom: 1px solid #edf0f4;
+
+  flex-shrink: 0;
+}
+
+.saved-report-modal-header h2 {
+  margin: 0;
+
+  color: #101a52;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.saved-report-close {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f1f3f6;
+  color: #17205b;
+
+  cursor: pointer;
+}
+
+.saved-report-close:hover {
+  background: #e7eaef;
+}
+
+
+/* =========================================================
+   MODAL BODY
+========================================================= */
+
+.saved-report-modal-body {
+  padding: 20px;
+
+  overflow-y: auto;
+
+  min-height: 0;
+}
+
+
+/* =========================================================
+   REPORT DETAIL CARDS
+========================================================= */
+
+.saved-report-detail-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-bottom: 16px;
+}
+
+.saved-report-detail {
+  padding: 11px 12px;
+
+  background: #fafbfc;
+
+  border: 1px solid #e7ebf1;
+  border-radius: 7px;
+}
+
+.saved-report-detail span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #7a8497;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.saved-report-detail strong {
+  color: #17205b;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   REPORT CONTENT
+========================================================= */
+
+.saved-report-content-section {
+  margin-top: 14px;
+}
+
+.saved-report-content-section h3 {
+  margin: 0 0 6px;
+
+  color: #101a52;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.saved-report-content-section p {
+  margin: 0;
+
+  color: #526078;
+
+  font-size: 12px;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   STRENGTHS / IMPROVEMENTS
+========================================================= */
+
+.saved-report-two-column {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 24px;
+
+  margin-top: 16px;
+}
+
+.saved-report-list {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.saved-report-list li {
+  position: relative;
+
+  margin-bottom: 6px;
+
+  padding-left: 15px;
+
+  color: #526078;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.saved-report-list li::before {
+  content: "•";
+
+  position: absolute;
+
+  left: 0;
+
+  color: #079447;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .saved-interviews-section {
+    max-height: calc(100vh - 230px);
+  }
+
+  .saved-interviews-header {
+    gap: 10px;
+  }
+
+  .saved-interviews-search {
+    width: 300px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .report-statistics {
+    grid-template-columns: 1fr;
+  }
+
+  .saved-interviews-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .saved-interviews-controls {
+    width: 100%;
+  }
+
+  .saved-interviews-search {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .saved-interviews-section {
+    max-height: calc(100vh - 190px);
+  }
+
+  .saved-interviews-table {
+    /*
+     * Preserve readable table width.
+     * Horizontal scrolling is available.
+     */
+    min-width: 900px;
+  }
+
+  .saved-interviews-table-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  .saved-report-detail-grid {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .saved-report-two-column {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 550px) {
+
+  .saved-interviews-section {
+    max-height: calc(100vh - 160px);
+  }
+
+  .saved-report-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .saved-report-modal {
+    width: 95vw;
+  }
+
+}
+
+/* =========================================================
+   SAVED REPORT MODAL HEADER
+========================================================= */
+
+.saved-report-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 24px;
+
+  border-bottom: 1px solid #e8e8e8;
+
+  background: #ffffff;
+}
+
+/* =========================================================
+   HEADER TITLE
+========================================================= */
+
+.saved-report-modal-header h2 {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 700;
+  height: 20px;
+
+
+  color: #172554;
+}
+
+
+
+
+/* =========================================================
+   RIGHT SIDE ACTIONS
+   Download + Close
+========================================================= */
+
+.saved-report-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 8px;
+
+  margin-left: 16px;
+
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   DOWNLOAD ICON
+========================================================= */
+
+.saved-report-download-button {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #555;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.saved-report-download-button:hover {
+  background: #f1f1f1;
+
+  color: #111;
+}
+
+.saved-report-download-button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   CLOSE ICON
+========================================================= */
+
+.saved-report-close {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #172554;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.saved-report-close:hover {
+  background: #f1f1f1;
+
+  color: #111;
+}
+
+/* =========================================================
+   REPORT BODY
+========================================================= */
+
+.saved-report-modal-body {
+  background: #ffffff;
+}
+
+/* =========================================================
+   PDF PAGE BREAK SUPPORT
+========================================================= */
+
+.saved-report-content-section,
+.saved-report-detail-grid,
+.saved-report-two-column {
+  break-inside: avoid;
+
+  page-break-inside: avoid;
+}
+
+/* Keep headings with their content */
+.saved-report-content-section h3 {
+  break-after: avoid;
+
+  page-break-after: avoid;
+}
+
+
+
+
+
+/* =========================================================
+   REPORT HEADER — MATCH INTERVIEW REPORT
+   ========================================================= */
+
+.saved-report-pdf-header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+
+  min-height: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-top: -20px;
+  margin-bottom: 12px;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+/* MIRAFRA — LEFT */
+
+.saved-report-pdf-mirafra {
+   font-size: 30px;
+   line-height: 31px;
+   font-weight: 500;
+   letter-spacing: 1px;
+
+   color: #159447;
+}
+
+.saved-report-pdf-technologies {
+   margin-top: 3px;
+   margin-left: -11px;
+
+   font-size: 14px;
+   line-height: 12px;
+   font-weight: 500;
+   letter-spacing: 2.7px;
+
+   color: #59646f;
+}
+
+/* INTELLIHIRE — CENTER */
+
+.saved-report-pdf-heading {
+  text-align: center;
+  width: 100%;
+}
+
+.saved-report-pdf-heading h1 {
+  margin: 4px 0 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+}
+/* =========================================================
+
+   NEW INTERVIEW PAGE
+
+========================================================= */
+ 
+.new-interview-page {
+
+  width: 100%;
+
+  min-height: 100vh;
+
+  background: #edf8ed;
+
+  color: #101a52;
+
+  overflow-x: hidden;
+
+  overflow-y: auto;
+
+  box-sizing: border-box;
+
+}
+ 
+ 
+/* =========================================================
+
+   TOP NAVBAR
+
+========================================================= */
+ 
+.new-interview-page .navbar {
+
+  height: 50px;
+
+  width: 100%;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+ 
+  padding: 0 42px 0 28px;
+ 
+  border-bottom: 1px solid #e5e9f2;
+
+  background: #ffffff;
+ 
+  flex-shrink: 0;
+
+  box-sizing: border-box;
+
+}
+ 
+ 
+/* =========================================================
+
+   NAVBAR LEFT
+
+========================================================= */
+ 
+.new-interview-page .navbar-left {
+
+  height: 100%;
+ 
+  display: flex;
+
+  align-items: center;
+ 
+  flex-shrink: 0;
+
+}
+ 
+ 
+/* =========================================================
+
+   MIRAFRA LOGO
+
+========================================================= */
+ 
+.new-interview-page .navbar-left .mirafra-logo,
+
+.new-interview-page .navbar-logo {
+
+  width: 125px;
+
+  flex-shrink: 0;
+
+}
+ 
+.new-interview-page .mirafra-name {
+
+  font-size: 30px;
+
+  line-height: 31px;
+ 
+  font-weight: 500;
+
+  letter-spacing: 1px;
+ 
+  color: #159447;
+  margin-top:-5px;
+
+}
+ 
+.new-interview-page .mirafra-tech {
+
+  margin-top: 3px;
+
+  margin-left: -11px;
+ 
+  font-size: 14px;
+
+  line-height: 12px;
+ 
+  font-weight: 500;
+
+  letter-spacing: 2.7px;
+ 
+  color: #59646f;
+
+}
+ 
+ 
+/* =========================================================
+
+   BRAND DIVIDER
+
+========================================================= */
+ 
+.new-interview-page .brand-divider {
+
+  width: 1px;
+
+  height: 42px;
+ 
+  margin: 0 28px 0 14px;
+ 
+  background: #d9deea;
+
+}
+ 
+ 
+/* =========================================================
+
+   INTELLIHIRE BRAND
+
+========================================================= */
+ 
+.new-interview-page .intellihire-brand {
+
+  line-height: 1.15;
+
+}
+ 
+.new-interview-page .intellihire-name {
+
+  color: #17205b;
+
+  font-size: 19px;
+
+  font-weight: 700;
+
+}
+ 
+.new-interview-page .intellihire-name span {
+
+  color: #079447;
+
+}
+ 
+.new-interview-page .intellihire-subtitle {
+
+  margin-top: 5px;
+ 
+  color: #17205b;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+}
+ 
+ 
+/* =========================================================
+
+   NAVBAR CENTER
+
+========================================================= */
+ 
+.new-interview-page .navbar-center {
+
+  height: 100%;
+ 
+  display: flex;
+
+  align-items: center;
+ 
+  gap: 10px;
+
+  margin-left: 110px;
+
+}
+ 
+ 
+/* =========================================================
+
+   NAV ITEMS
+
+========================================================= */
+ 
+.new-interview-page .nav-item {
+
+  position: relative;
+ 
+  height: 50px;
+
+  min-width: 160px;
+ 
+  border: none;
+
+  background: transparent;
+ 
+  color: #111a50;
+ 
+  font-size: 14px;
+
+  font-weight: 600;
+ 
+  cursor: pointer;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  gap: 10px;
+ 
+  font-family: inherit;
+
+}
+ 
+.new-interview-page .nav-item:hover {
+
+  color: #079447;
+
+}
+ 
+.new-interview-page .nav-item.active {
+
+  color: #079447;
+
+}
+ 
+.new-interview-page .nav-item.active::after {
+
+  content: "";
+ 
+  position: absolute;
+ 
+  left: 12px;
+
+  right: 12px;
+
+  bottom: 0;
+ 
+  height: 3px;
+ 
+  background: #079447;
+ 
+  border-radius: 3px 3px 0 0;
+
+}
+ 
+.new-interview-page .nav-icon {
+
+  font-size: 25px;
+
+  font-weight: 500;
+
+  line-height: 1;
+
+}
+ 
+ 
+/* =========================================================
+
+   NAVBAR RIGHT
+
+========================================================= */
+ 
+.new-interview-page .navbar-right {
+
+  width: 230px;
+
+  height: 100%;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+ 
+  flex-shrink: 0;
+
+}
+ 
+ 
+/* =========================================================
+
+   PAGE HEADER - COMPACT
+
+========================================================= */
+ 
+.new-interview-header {
+
+  width: 100%;
+ 
+  height: 43px !important;
+
+  min-height: 43px !important;
+  max-height: 43px !important;
+ 
+  display: flex;
+
+  align-items: center;
+ 
+  padding: 4px 28px;
+ 
+  background: #07194F;
+ 
+  border-bottom: 1px solid #e5e9f2;
+ 
+  box-sizing: border-box;
+
+}
+
+ 
+/* =========================================================
+
+   BACK BUTTON
+
+========================================================= */
+ 
+.back-button {
+
+  width: 30px !important;
+
+  height: 30px !important;
+ 
+  margin-right: 16px;
+ 
+  border: 1.5px solid #dce4f1;
+
+  border-radius: 8px;
+ 
+  background: #159447;
+
+  color: #ffffff;
+ 
+  font-size: 25px;
+
+  font-weight: 900 !important;
+ 
+  -webkit-text-stroke: 1px #ffffff;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  cursor: pointer;
+
+  flex-shrink: 0;
+ 
+  line-height: 1;
+
+  padding: 0;
+  padding-bottom: 5px !important;
+
+}
+ 
+ 
+.back-button:hover {
+
+  background: #f5faf7;
+
+  border-color: #079447;
+
+  color: #079447;
+
+}
+ 
+ 
+/* =========================================================
+
+   PAGE TITLE
+
+========================================================= */
+ 
+.new-interview-header h1 {
+
+  margin: 0;
+ 
+  color: #ffffff;
+ 
+  font-size: 18px;
+
+  line-height: 20px;
+ 
+  font-weight: 700;
+
+}
+ 
+.new-interview-header p {
+
+  margin: 1px 0 0;
+ 
+  color: #ffffff !important;
+ 
+  font-size: 11px;
+
+  line-height: 15px;
+
+}
+ 
+ 
+/* =========================================================
+
+   STEP INDICATOR - COMPACT
+
+========================================================= */
+ 
+.step-indicator {
+
+  margin-left: auto;
+
+  padding-right: 10px;
+ 
+  display: flex;
+
+  align-items: center;
+
+}
+ 
+.step {
+
+  display: flex;
+
+  align-items: center;
+ 
+  gap: 8px;
+ 
+  white-space: nowrap;
+ 
+  background: none;
+
+  border: none;
+
+  padding: 0;
+
+  margin: 0;
+ 
+  font: inherit;
+
+  color: inherit;
+ 
+  cursor: pointer;
+
+  text-align: left;
+
+}
+ 
+.step:disabled {
+
+  cursor: default;
+
+}
+ 
+.step-number {
+
+  width: 34px;
+
+  height: 34px;
+ 
+  border-radius: 50%;
+ 
+  background: #eef2f8;
+
+  color: #18255e;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  font-size: 13px;
+
+  font-weight: 700;
+
+}
+ 
+.step.active .step-number {
+
+  background: #079447;
+
+  color: #ffffff;
+
+}
+ 
+.step strong {
+
+  display: block;
+ 
+  color: #ffffff;
+ 
+  font-size: 11px;
+
+  line-height: 14px;
+
+}
+ 
+.step span {
+
+  display: block;
+ 
+  margin-top: 0;
+ 
+  color: #ffffff !important;
+ 
+  font-size: 9px;
+
+  line-height: 12px;
+
+}
+ 
+.step-line {
+
+  width: 45px;
+
+  height: 2px;
+ 
+  margin: 0 12px;
+ 
+  background: repeating-linear-gradient(
+
+    to right,
+
+    #9eafd1 0,
+
+    #9eafd1 6px,
+
+    transparent 6px,
+
+    transparent 11px
+
+  );
+
+}
+ 
+ 
+/* =========================================================
+
+   MAIN CONTENT
+
+========================================================= */
+ 
+.new-interview-content {
+
+  width: 100%;
+ 
+  display: grid;
+ 
+  grid-template-columns:
+
+    minmax(0, 2.1fr)
+
+    minmax(330px, 0.85fr);
+ 
+  gap: 25px;
+ 
+  padding: 10px 28px 20px;
+ 
+  align-items: start;
+ 
+  box-sizing: border-box;
+
+}
+ 
+ 
+/* =========================================================
+
+   LEFT COLUMN
+
+========================================================= */
+ 
+.new-interview-left {
+
+  width: 100%;
+
+  min-width: 0;
+
+}
+ 
+ 
+/* =========================================================
+
+   INTERVIEW SECTION
+
+   DIVIDER REMOVED
+
+========================================================= */
+ 
+.interview-section {
+
+  position: relative;
+ 
+  width: 100%;
+ 
+  padding: 0 0 6px;
+ 
+  margin-bottom: 7px;
+ 
+  /*
+
+     Divider removed intentionally.
+
+  */
+ 
+  border-bottom: none;
+ 
+  box-sizing: border-box;
+
+}
+ 
+.interview-section h2 {
+
+  margin: 0 0 6px;
+ 
+  color: #101a52;
+ 
+  font-size: 15px;
+
+  line-height: 19px;
+ 
+  font-weight: 700;
+
+}
+ 
+ 
+/* =========================================================
+
+   UPLOAD ROW
+
+========================================================= */
+ 
+.upload-row {
+
+  width: 100%;
+ 
+  display: grid;
+ 
+  grid-template-columns:
+
+    minmax(280px, 1.25fr)
+
+    minmax(250px, 0.9fr)
+
+    105px;
+ 
+  gap: 12px;
+ 
+  align-items: stretch;
+ 
+  box-sizing: border-box;
+
+}
+ 
+ 
+/* =========================================================
+
+   UPLOAD BOX
+
+========================================================= */
+ 
+.resume-upload {
+
+  width: 100%;
+ 
+  height: 70px;
+
+  min-height: 70px;
+ 
+  padding: 8px 14px;
+ 
+  border: 1.5px dashed #079447;
+
+  border-radius: 9px;
+ 
+  background: #fbfefc;
+ 
+  display: flex;
+
+  flex-direction: row;
+ 
+  align-items: center;
+
+  justify-content: center;
+ 
+  text-align: center;
+ 
+  cursor: pointer;
+ 
+  box-sizing: border-box;
+ 
+  transition: 0.2s ease;
+
+}
+ 
+.resume-upload:hover {
+
+  border-color: #067d3c;
+
+  background: #f5fbf7;
+
+}
+ 
+ 
+/* =========================================================
+
+   UPLOAD ICON
+
+========================================================= */
+ 
+.upload-icon {
+
+  width: 38px;
+
+  height: 38px;
+ 
+  margin: 0 11px 0 0;
+ 
+  flex-shrink: 0;
+ 
+  border-radius: 50%;
+ 
+  background: #e4f4e8;
+
+  color: #079447;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  font-size: 18px;
+
+  font-weight: 700;
+
+}
+ 
+ 
+/* =========================================================
+
+   UPLOAD TEXT
+
+========================================================= */
+ 
+.upload-text {
+
+  min-width: 0;
+ 
+  display: flex;
+
+  flex-direction: column;
+
+}
+ 
+.resume-upload strong {
+
+  display: block;
+ 
+  margin-bottom: 1px;
+ 
+  color: #101a52;
+ 
+  font-size: 12px;
+
+  line-height: 15px;
+
+}
+ 
+.resume-upload span {
+
+  display: block;
+ 
+  color: #63718a;
+ 
+  font-size: 10px;
+
+  line-height: 13px;
+
+}
+ 
+.resume-upload span b {
+
+  color: #079447;
+
+}
+ 
+.resume-upload small {
+
+  display: block;
+ 
+  margin-top: 2px;
+ 
+  color: #8995a8;
+ 
+  font-size: 9px;
+
+  line-height: 11px;
+
+}
+ 
+ 
+/* =========================================================
+
+   RESUME STATUS
+
+========================================================= */
+ 
+.resume-status {
+
+  width: 100%;
+ 
+  height: 70px;
+
+  min-height: 70px;
+ 
+  padding: 9px;
+ 
+  border: 1px solid #dce4f1;
+
+  border-radius: 9px;
+ 
+  background: #ffffff;
+ 
+  display: flex;
+
+  align-items: center;
+ 
+  gap: 9px;
+ 
+  box-sizing: border-box;
+ 
+  position: relative;
+
+}
+ 
+ 
+/* =========================================================
+
+   FILE ICON
+
+========================================================= */
+ 
+.file-icon {
+
+  width: 35px;
+
+  height: 35px;
+ 
+  flex-shrink: 0;
+ 
+  border-radius: 8px;
+ 
+  background: #e4f4e8;
+
+  color: #079447;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  font-size: 17px;
+
+}
+ 
+.file-icon.empty {
+
+  opacity: 1;
+
+}
+ 
+ 
+/* =========================================================
+
+   FILE INFORMATION
+
+========================================================= */
+ 
+.file-information {
+
+  min-width: 0;
+ 
+  display: flex;
+
+  flex-direction: column;
+ 
+  gap: 2px;
+ 
+  padding-right: 25px;
+
+}
+ 
+.file-information strong {
+
+  color: #101a52;
+ 
+  font-size: 11px;
+
+  line-height: 14px;
+ 
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+ 
+.file-information span {
+
+  color: #718099;
+ 
+  font-size: 9px;
+
+  line-height: 12px;
+
+}
+ 
+.file-information .uploaded-message {
+
+  color: #079447;
+
+  font-size: 9px;
+
+}
+ 
+ 
+/* =========================================================
+
+   FILE CHECK
+
+========================================================= */
+ 
+.file-check {
+
+  width: 28px;
+
+  height: 28px;
+ 
+  margin-left: auto;
+
+  margin-right: 30px;
+ 
+  flex-shrink: 0;
+ 
+  border-radius: 50%;
+ 
+  background: #dff3e5;
+
+  color: #079447;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  font-size: 18px;
+
+  font-weight: 700;
+
+}
+ 
+ 
+/* =========================================================
+
+   DELETE RESUME BUTTON
+
+========================================================= */
+ 
+.delete-resume-button {
+
+  position: absolute;
+ 
+  top: 6px;
+
+  right: 7px;
+ 
+  width: 28px;
+
+  height: 28px;
+ 
+  margin-top: 11px;
+ 
+  padding: 0;
+ 
+  border: none;
+ 
+  background: #fff1f1;
+
+  color: #e32626;
+ 
+  font-size: 27px;
+
+  line-height: 18px;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  cursor: pointer;
+ 
+  border-radius: 4px;
+ 
+  transition: 0.2s ease;
+
+}
+ 
+.delete-resume-button:hover {
+
+  color: #e32626;
+
+  background: #fff1f1;
+
+}
+ 
+ 
+/* =========================================================
+
+   ANALYZE BUTTON
+
+========================================================= */
+ 
+.analyze-button {
+
+  width: 105px;
+
+  height: 70px;
+ 
+  margin: 0;
+
+  padding: 0 9px;
+ 
+  border: none;
+
+  border-radius: 8px;
+ 
+  background: #079447;
+
+  color: #ffffff;
+ 
+  font-size: 11px;
+
+  font-weight: 700;
+ 
+  cursor: pointer;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  text-align: center;
+
+  line-height: 15px;
+ 
+  box-sizing: border-box;
+ 
+  transition: 0.2s ease;
+
+}
+ 
+.analyze-button:hover:not(:disabled) {
+
+  background: #067d3c;
+
+  transform: translateY(-1px);
+
+}
+ 
+.analyze-button:disabled,
+
+.analyze-button.disabled {
+
+  background: #101a52;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+}
+ 
+ 
+/* =========================================================
+
+   ANALYZE BUTTON INSIDE FIRST SECTION
+
+========================================================= */
+ 
+.interview-section:first-child > .analyze-button {
+
+  position: absolute;
+ 
+  right: 0;
+
+  top: 32px;
+ 
+  width: 105px;
+
+  height: 70px;
+
+}
+ 
+ 
+/* =========================================================
+
+   SECTION HEADING ROW
+
+========================================================= */
+ 
+.section-heading-row {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+ 
+  margin-bottom: 2px;
+
+}
+ 
+.section-heading-row h2 {
+
+  margin: 0;
+
+}
+ 
+ 
+/* =========================================================
+
+   EDIT BUTTON
+
+========================================================= */
+ 
+.edit-button {
+
+  height: 28px;
+ 
+  padding: 0 11px;
+ 
+  border: 1px solid #dbe4f2;
+
+  border-radius: 7px;
+ 
+  background: #ffffff;
+
+  color: #17245d;
+ 
+  font-size: 10px;
+
+  font-weight: 600;
+ 
+  cursor: pointer;
+ 
+  white-space: nowrap;
+ 
+  transition: 0.2s ease;
+
+}
+ 
+.edit-button:hover {
+
+  border-color: #079447;
+
+  color: #079447;
+
+}
+ 
+ 
+/* =========================================================
+
+   CANDIDATE FIELDS
+
+========================================================= */
+ 
+.candidate-fields {
+
+  width: 100%;
+ 
+  display: grid;
+ 
+  grid-template-columns: 1fr 1fr;
+ 
+  gap: 5px 14px;
+
+}
+ 
+.candidate-field {
+
+  width: 100%;
+
+  min-width: 0;
+
+}
+ 
+.candidate-field.full-width {
+
+  grid-column: 1 / -1;
+  
+
+}
+ 
+.candidate-field-content {
+
+  width: 100%;
+  white-space: nowrap;
+
+}
+ 
+ 
+/* =========================================================
+
+   CANDIDATE LABELS
+
+========================================================= */
+ 
+.candidate-field label,
+
+.form-field label {
+
+  display: block;
+ 
+  margin-bottom: 2px;
+ 
+  color: #17245d;
+ 
+  font-size: 11px;
+
+  line-height: 14px;
+ 
+  font-weight: 600;
+
+}
+ 
+ 
+/* =========================================================
+
+   CANDIDATE INPUT WRAPPER
+
+========================================================= */
+ 
+.candidate-input-wrapper {
+
+  position: relative;
+
+  width: 100%;
+
+}
+ 
+ 
+/* =========================================================
+
+   CANDIDATE ICON
+
+========================================================= */
+ 
+.candidate-field-icon {
+
+  position: absolute;
+ 
+  left: 12px;
+
+  top: 50%;
+ 
+  transform: translateY(-50%);
+ 
+  width: 18px;
+ 
+  color: #079447;
+ 
+  font-size: 14px;
+
+  line-height: 1;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  z-index: 2;
+ 
+  pointer-events: none;
+
+}
+ 
+ 
+/* =========================================================
+
+   CANDIDATE INPUTS
+
+========================================================= */
+ 
+.candidate-input-wrapper input {
+
+  width: 500%;
+ 
+  height: 34px;
+ 
+  padding: 0 12px 0 38px;
+ 
+  border: 1px solid #dce5f2;
+
+  border-radius: 7px;
+ 
+  background: #ffffff;
+
+  color: #17245d;
+ 
+  font-family: inherit;
+
+  font-size: 11px;
+ 
+  outline: none;
+ 
+  box-sizing: border-box;
+ 
+  transition: 0.2s ease;
+
+}
+/* Skills box only */
+
+.candidate-input-wrapper input[name="skills"] {
+
+  width: 1025% !important;
+
+}
+ 
+ 
+.candidate-input-wrapper input::placeholder {
+
+  color: #9aa7bb;
+
+}
+ 
+.candidate-input-wrapper input:focus {
+
+  border-color: #079447;
+ 
+  box-shadow: 0 0 0 2px rgba(7, 148, 71, 0.08);
+
+}
+ 
+.candidate-input-wrapper input[readonly] {
+
+  cursor: default;
+
+}
+ 
+ 
+/* =========================================================
+
+   ADDITIONAL INFORMATION
+
+========================================================= */
+ 
+.green-section-title {
+
+  color: #08783c !important;
+
+  margin-bottom: 2px !important;
+
+}
+ 
+.green-section-title span {
+
+  margin-left: 5px;
+ 
+  color: #1769c2;
+ 
+  font-size: 9px;
+
+  font-weight: 600;
+
+}
+ 
+ 
+/* =========================================================
+
+   ADDITIONAL GRID
+
+========================================================= */
+ 
+.additional-grid {
+
+  width: 100%;
+ 
+  display: grid;
+ 
+  grid-template-columns: 1fr 1fr;
+ 
+  gap: 5px 14px;
+
+}
+ 
+ 
+/* =========================================================
+
+   FORM FIELDS
+
+========================================================= */
+ 
+.form-field {
+
+  width: 100%;
+
+  min-width: 0;
+
+}
+ 
+ 
+/* =========================================================
+
+   FORM INPUTS
+
+========================================================= */
+ 
+.form-field input,
+
+.form-field select {
+
+  width: 100%;
+ 
+  height: 34px;
+ 
+  padding: 0 11px;
+ 
+  border: 1px solid #dce5f2;
+
+  border-radius: 7px;
+ 
+  background: #ffffff;
+
+  color: #17245d;
+ 
+  font-family: inherit;
+
+  font-size: 11px;
+ 
+  outline: none;
+ 
+  box-sizing: border-box;
+ 
+  transition: 0.2s ease;
+
+}
+ 
+.form-field input::placeholder {
+
+  color: #9aa7bb;
+
+}
+ 
+.form-field input:focus,
+
+.form-field select:focus {
+
+  border-color: #079447;
+ 
+  box-shadow: 0 0 0 2px rgba(7, 148, 71, 0.08);
+
+}
+ 
+.form-field select {
+
+  cursor: pointer;
+
+}
+ 
+.form-field label b {
+
+  color: #e32626;
+
+}
+ 
+ 
+/* =========================================================
+
+   MANAGER EMAIL
+
+========================================================= */
+ 
+.form-field select[name="managerEmail"] {
+
+  width: 100%;
+
+}
+ 
+ 
+/* =========================================================
+
+   RIGHT SIDE - CANDIDATE PREVIEW
+
+========================================================= */
+ 
+.candidate-preview {
+
+  width: 100%;
+ 
+  padding: 18px;
+ 
+  border: 1px solid #dce5f2;
+
+  border-radius: 10px;
+ 
+  background: #ffffff;
+ 
+  box-shadow: 0 4px 15px rgba(20, 40, 80, 0.03);
+ 
+  position: sticky;
+
+  top: 12px;
+ 
+  box-sizing: border-box;
+
+}
+ 
+ 
+/* =========================================================
+
+   PREVIEW HEADING
+
+========================================================= */
+ 
+.candidate-preview > h2 {
+
+  margin: 0 0 15px;
+ 
+  color: #101a52;
+ 
+  font-size: 15px;
+
+  line-height: 20px;
+
+}
+ 
+ 
+/* =========================================================
+
+   PREVIEW HEADING ROW
+
+========================================================= */
+ 
+.preview-heading-row {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+ 
+  gap: 10px;
+ 
+  margin-bottom: 15px;
+
+}
+ 
+.preview-heading-row h2 {
+
+  margin: 0;
+ 
+  color: #101a52;
+ 
+  font-size: 15px;
+
+}
+ 
+ 
+/* =========================================================
+
+   PREVIEW STATUS
+
+========================================================= */
+ 
+.preview-status {
+
+  padding: 4px 7px;
+ 
+  border-radius: 12px;
+ 
+  background: #eef8f1;
+
+  color: #079447;
+ 
+  font-size: 10px;
+
+  font-weight: 600;
+ 
+  white-space: nowrap;
+
+}
+ 
+ 
+/* =========================================================
+
+   PREVIEW CANDIDATE
+
+========================================================= */
+ 
+.preview-candidate {
+
+  display: flex;
+
+  align-items: center;
+ 
+  gap: 12px;
+
+}
+ 
+.candidate-avatar {
+
+  width: 62px;
+
+  height: 62px;
+ 
+  flex-shrink: 0;
+ 
+  border-radius: 50%;
+ 
+  background: #e3f4e7;
+
+  color: #079447;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  font-size: 22px;
+
+  font-weight: 700;
+
+}
+ 
+.preview-name {
+
+  min-width: 0;
+
+}
+ 
+.preview-name h3 {
+
+  margin: 0 0 3px;
+ 
+  color: #101a52;
+ 
+  font-size: 14px;
+
+  line-height: 18px;
+
+}
+ 
+.preview-name span {
+
+  color: #61708a;
+ 
+  font-size: 9px;
+
+  line-height: 14px;
+ 
+  display: block;
+
+}
+ 
+ 
+/* =========================================================
+
+   PREVIEW DETAILS
+
+========================================================= */
+ 
+.preview-details {
+
+  margin-top: 15px;
+ 
+  display: flex;
+
+  flex-direction: column;
+ 
+  gap: 10px;
+
+}
+ 
+.preview-details > div {
+
+  display: flex;
+
+  align-items: center;
+ 
+  gap: 9px;
+ 
+  min-width: 0;
+
+}
+ 
+.preview-details span {
+
+  width: 20px;
+ 
+  flex-shrink: 0;
+ 
+  color: #101a52;
+ 
+  font-size: 13px;
+ 
+  text-align: center;
+
+}
+ 
+.preview-details p {
+
+  margin: 0;
+ 
+  min-width: 0;
+ 
+  color: #243466;
+ 
+  font-size: 9px;
+
+  line-height: 14px;
+ 
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+ 
+ 
+/* =========================================================
+
+   PREVIEW DIVIDER
+
+========================================================= */
+ 
+.preview-divider {
+
+  width: 100%;
+ 
+  height: 1px;
+ 
+  margin: 15px 0;
+ 
+  background: #e1e7f1;
+
+}
+ 
+ 
+/* =========================================================
+
+   RESUME SUMMARY
+
+========================================================= */
+ 
+.resume-summary h2 {
+
+  margin: 0 0 6px;
+ 
+  color: #101a52;
+ 
+  font-size: 13px;
+
+  line-height: 17px;
+
+}
+ 
+.resume-summary p {
+
+  margin: 0;
+ 
+  color: #718099;
+ 
+  font-size: 10px;
+
+  line-height: 15px;
+
+}
+ 
+ 
+/* =========================================================
+
+   PREVIEW INTERVIEW INFO
+
+========================================================= */
+ 
+.preview-interview-info {
+
+  margin-top: 15px;
+ 
+  padding-top: 12px;
+ 
+  border-top: 1px solid #e1e7f1;
+ 
+  display: grid;
+ 
+  grid-template-columns: 1fr 1fr;
+ 
+  gap: 10px;
+
+}
+ 
+.preview-info-item {
+
+  min-width: 0;
+ 
+  display: flex;
+
+  flex-direction: column;
+ 
+  gap: 3px;
+
+}
+ 
+.preview-info-item span {
+
+  color: #78859c;
+
+  font-size: 9px;
+
+}
+ 
+.preview-info-item strong {
+
+  color: #17245d;
+ 
+  font-size: 10px;
+
+  line-height: 14px;
+ 
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+ 
+ 
+/* =========================================================
+
+   REVIEW & START BUTTON
+
+========================================================= */
+ 
+.review-start-button {
+
+  width: 100%;
+ 
+  height: 42px;
+ 
+  margin-top: 15px;
+ 
+  border: none;
+
+  border-radius: 7px;
+ 
+  background: #079447;
+
+  color: #ffffff;
+ 
+  font-size: 11px;
+
+  font-weight: 700;
+ 
+  cursor: pointer;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  gap: 10px;
+ 
+  transition: 0.2s ease;
+
+}
+ 
+.review-start-button:hover:not(:disabled) {
+
+  background: #067d3c;
+
+  transform: translateY(-1px);
+
+}
+ 
+.review-start-button:disabled {
+
+  background: #101a52;
+ 
+  cursor: not-allowed;
+ 
+  transform: none;
+
+}
+ 
+.review-start-button span {
+
+  font-size: 16px;
+
+}
+ 
+.review-start-button .review-arrow {
+
+  font-size: 17px;
+
+}
+ 
+ 
+/* =========================================================
+
+   START HELPER TEXT
+
+========================================================= */
+ 
+.start-helper-text {
+
+  margin: 7px 0 0;
+ 
+  color: #8995a8;
+ 
+  font-size: 9px;
+
+  line-height: 13px;
+ 
+  text-align: center;
+
+}
+ 
+ 
+/* =========================================================
+
+   LAPTOP HEIGHT OPTIMIZATION
+
+========================================================= */
+ 
+@media (max-height: 800px) and (min-width: 801px) {
+ 
+  .new-interview-header {
+
+    height: 55px;
+
+    min-height: 55px;
+ 
+    padding: 5px 28px;
+
+  }
+ 
+  .new-interview-content {
+
+    padding-top: 8px;
+
+    padding-bottom: 15px;
+
+  }
+ 
+  .interview-section {
+
+    padding-bottom: 5px;
+
+    margin-bottom: 6px;
+ 
+    border-bottom: none;
+
+  }
+ 
+  .interview-section h2 {
+
+    margin-bottom: 5px;
+
+  }
+ 
+  .resume-upload,
+
+  .resume-status,
+
+  .analyze-button {
+
+    height: 66px;
+
+    min-height: 66px;
+
+  }
+ 
+  .interview-section:first-child > .analyze-button {
+
+    height: 66px;
+
+  }
+ 
+  .candidate-input-wrapper input,
+
+  .form-field input,
+
+  .form-field select {
+
+    height: 33px;
+
+  }
+ 
+  .candidate-fields,
+
+  .additional-grid {
+
+    gap: 5px 12px;
+
+  }
+ 
+  .candidate-preview {
+
+    padding: 16px;
+
+  }
+ 
+  .preview-details {
+
+    margin-top: 12px;
+
+    gap: 8px;
+
+  }
+ 
+  .preview-divider {
+
+    margin: 12px 0;
+
+  }
+ 
+  .resume-summary p {
+
+    line-height: 14px;
+
+  }
+
+}
+ 
+ 
+/* =========================================================
+
+   MEDIUM LAPTOP
+
+========================================================= */
+ 
+@media (max-width: 1200px) and (min-width: 801px) {
+ 
+  .new-interview-page .navbar {
+
+    padding-left: 20px;
+
+    padding-right: 20px;
+
+  }
+ 
+  .new-interview-page .navbar-center {
+
+    margin-left: 30px;
+
+  }
+ 
+  .new-interview-page .nav-item {
+
+    min-width: 130px;
+
+  }
+ 
+  .new-interview-header {
+
+    padding-left: 20px;
+
+    padding-right: 20px;
+
+  }
+ 
+  .new-interview-content {
+
+    grid-template-columns:
+
+      minmax(0, 1.8fr)
+
+      minmax(300px, 0.8fr);
+ 
+    gap: 18px;
+ 
+    padding-left: 20px;
+
+    padding-right: 20px;
+
+  }
+ 
+  .upload-row {
+
+    grid-template-columns:
+
+      minmax(230px, 1.2fr)
+
+      minmax(210px, 0.9fr)
+
+      95px;
+ 
+    gap: 9px;
+
+  }
+ 
+  .resume-upload,
+
+  .resume-status,
+
+  .analyze-button {
+
+    height: 66px;
+
+    min-height: 66px;
+
+  }
+ 
+  .analyze-button {
+
+    width: 95px;
+
+  }
+ 
+  .interview-section:first-child > .analyze-button {
+
+    width: 95px;
+
+    height: 66px;
+
+  }
+ 
+  .upload-icon {
+
+    width: 36px;
+
+    height: 36px;
+ 
+    margin-right: 9px;
+
+  }
+ 
+  .candidate-fields,
+
+  .additional-grid {
+
+    gap: 5px 10px;
+
+  }
+ 
+  .candidate-input-wrapper input,
+
+  .form-field input,
+
+  .form-field select {
+
+    height: 33px;
+
+  }
+ 
+  .candidate-field label,
+
+  .form-field label {
+
+    font-size: 10px;
+
+  }
+ 
+  .candidate-input-wrapper input,
+
+  .form-field input,
+
+  .form-field select {
+
+    font-size: 10px;
+
+  }
+
+}
+ 
+ 
+/* =========================================================
+
+   TABLET
+
+========================================================= */
+ 
+@media (max-width: 800px) {
+ 
+  .new-interview-page .navbar {
+
+    height: 50px;
+
+    padding: 0 18px;
+
+  }
+ 
+  .new-interview-page .navbar-center {
+
+    display: none;
+
+  }
+ 
+  .new-interview-page .navbar-right {
+
+    display: none;
+
+  }
+ 
+  .new-interview-page .brand-divider {
+
+    display: none;
+
+  }
+ 
+  .new-interview-page .intellihire-brand {
+
+    margin-left: 10px;
+
+  }
+ 
+  .new-interview-header {
+
+    height: auto;
+
+    min-height: 72px;
+ 
+    padding: 10px 18px;
+
+  }
+ 
+  .step-indicator {
+
+    display: none;
+
+  }
+ 
+  .new-interview-content {
+
+    grid-template-columns: 1fr;
+ 
+    gap: 16px;
+ 
+    padding: 12px 18px 20px;
+
+  }
+ 
+  .candidate-preview {
+
+    position: relative;
+
+    top: auto;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     UPLOAD SECTION
+
+  ===================================================== */
+ 
+  .upload-row {
+
+    grid-template-columns: 1fr 1fr;
+ 
+    gap: 10px;
+
+  }
+ 
+  .resume-upload,
+
+  .resume-status {
+
+    height: 70px;
+
+    min-height: 70px;
+
+  }
+ 
+  .resume-upload {
+
+    padding: 8px 12px;
+
+  }
+ 
+  .upload-icon {
+
+    width: 36px;
+
+    height: 36px;
+ 
+    margin-right: 9px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     ANALYZE BELOW
+
+  ===================================================== */
+ 
+  .interview-section:first-child > .analyze-button {
+
+    position: static;
+ 
+    width: 120px;
+
+    height: 40px;
+ 
+    margin-top: 7px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     CANDIDATE FIELDS
+
+  ===================================================== */
+ 
+  .candidate-fields,
+
+  .additional-grid {
+
+    grid-template-columns: 1fr 1fr;
+
+  }
+ 
+  .candidate-input-wrapper input {
+
+    height: 36px;
+
+  }
+ 
+  .form-field input,
+
+  .form-field select {
+
+    height: 36px;
+
+  }
+
+}
+ 
+ 
+/* =========================================================
+
+   MOBILE
+
+========================================================= */
+ 
+@media (max-width: 600px) {
+ 
+  .new-interview-page .navbar {
+
+    height: 50px;
+
+    padding: 0 14px;
+
+  }
+ 
+  .new-interview-page .navbar-left .mirafra-logo,
+
+  .new-interview-page .navbar-logo {
+
+    width: 105px;
+
+  }
+ 
+  .new-interview-page .mirafra-name {
+
+    font-size: 25px;
+
+  }
+ 
+  .new-interview-page .mirafra-tech {
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+  }
+ 
+  .new-interview-page .intellihire-name {
+
+    font-size: 16px;
+
+  }
+ 
+  .new-interview-page .intellihire-subtitle {
+
+    font-size: 10px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     HEADER
+
+  ===================================================== */
+ 
+  .new-interview-header {
+
+    min-height: 68px;
+ 
+    padding: 9px 14px;
+
+  }
+ 
+  .back-button {
+
+    width: 38px;
+
+    height: 38px;
+ 
+    margin-right: 11px;
+ 
+    font-size: 20px;
+
+  }
+ 
+  .new-interview-header h1 {
+
+    font-size: 20px;
+
+    line-height: 24px;
+
+  }
+ 
+  .new-interview-header p {
+
+    font-size: 10px;
+
+    line-height: 14px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     CONTENT
+
+  ===================================================== */
+ 
+  .new-interview-content {
+
+    padding: 10px 14px 20px;
+ 
+    gap: 14px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     CANDIDATE DETAILS - COMPACT
+
+  ===================================================== */
+ 
+  .candidate-fields {
+
+    width: 100%;
+ 
+    display: grid;
+ 
+    grid-template-columns: 1fr 1fr;
+ 
+    gap: 4px 14px;
+
+  }
+ 
+  .candidate-field {
+
+    width: 100%;
+
+    min-width: 0;
+
+  }
+ 
+  .candidate-field.full-width {
+
+    grid-column: 1 / -1;
+
+  }
+ 
+  .candidate-field-content {
+
+    width: 100%;
+
+  }
+ 
+  .candidate-field label,
+
+  .form-field label {
+
+    display: block;
+ 
+    margin-bottom: 2px;
+ 
+    color: #17245d;
+ 
+    font-size: 10px;
+
+    line-height: 13px;
+ 
+    font-weight: 600;
+
+  }
+ 
+  .candidate-input-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+  }
+ 
+  .candidate-input-wrapper input {
+
+    width: 100%;
+ 
+    height: 34px;
+ 
+    padding: 0 12px 0 38px;
+ 
+    border: 1px solid #dce5f2;
+
+    border-radius: 7px;
+ 
+    background: #ffffff;
+
+    color: #17245d;
+ 
+    font-family: inherit;
+
+    font-size: 10px;
+ 
+    outline: none;
+ 
+    box-sizing: border-box;
+ 
+    transition: 0.2s ease;
+
+  }
+ 
+  .candidate-field-icon {
+
+    position: absolute;
+ 
+    left: 12px;
+
+    top: 50%;
+ 
+    transform: translateY(-50%);
+ 
+    width: 18px;
+ 
+    color: #079447;
+ 
+    font-size: 13px;
+ 
+    line-height: 1;
+ 
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+ 
+    z-index: 2;
+ 
+    pointer-events: none;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     ADDITIONAL INFORMATION
+
+  ===================================================== */
+ 
+  .additional-grid {
+
+    grid-template-columns: 1fr;
+ 
+    gap: 7px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     UPLOAD SECTION
+
+  ===================================================== */
+ 
+  .upload-row {
+
+    grid-template-columns: 1fr;
+ 
+    gap: 8px;
+
+  }
+ 
+  .resume-upload,
+
+  .resume-status {
+
+    width: 100%;
+ 
+    height: 70px;
+
+    min-height: 70px;
+
+  }
+ 
+  .resume-upload {
+
+    padding: 8px 12px;
+
+  }
+ 
+  .upload-icon {
+
+    width: 36px;
+
+    height: 36px;
+ 
+    margin-right: 10px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     ANALYZE BUTTON
+
+  ===================================================== */
+ 
+  .interview-section:first-child > .analyze-button {
+
+    position: static;
+ 
+    width: 100%;
+
+    height: 40px;
+ 
+    margin-top: 7px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     EDIT BUTTON
+
+  ===================================================== */
+ 
+  .section-heading-row {
+
+    align-items: center;
+ 
+    gap: 8px;
+ 
+    margin-bottom: 2px;
+
+  }
+ 
+  .section-heading-row h2 {
+
+    font-size: 14px;
+
+  }
+ 
+  .edit-button {
+
+    height: 28px;
+ 
+    padding: 0 9px;
+ 
+    font-size: 9px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     CANDIDATE INPUTS
+
+  ===================================================== */
+ 
+  .candidate-input-wrapper input {
+
+    height: 36px;
+ 
+    padding-left: 39px;
+
+  }
+ 
+  .candidate-field-icon {
+
+    left: 12px;
+ 
+    font-size: 14px;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     PREVIEW
+
+  ===================================================== */
+ 
+  .candidate-preview {
+
+    padding: 16px;
+
+  }
+ 
+  .candidate-avatar {
+
+    width: 58px;
+
+    height: 58px;
+ 
+    font-size: 21px;
+
+  }
+ 
+  .preview-name h3 {
+
+    font-size: 13px;
+
+  }
+ 
+  .preview-name span {
+
+    font-size: 9px;
+
+  }
+ 
+  .preview-details {
+
+    gap: 9px;
+
+  }
+ 
+  .preview-details p {
+
+    font-size: 9px;
+
+  }
+ 
+  .preview-interview-info {
+
+    grid-template-columns: 1fr;
+
+  }
+ 
+ 
+  /* =====================================================
+
+     REMOVE SECTION DIVIDERS
+
+  ===================================================== */
+ 
+  .interview-section {
+
+    border-bottom: none;
+
+  }
+
+}
+ 
+ 
+/* =========================================================
+
+   VERY SMALL MOBILE
+
+========================================================= */
+ 
+@media (max-width: 400px) {
+ 
+  .new-interview-page .mirafra-name {
+
+    font-size: 22px;
+
+  }
+ 
+  .new-interview-page .mirafra-tech {
+
+    font-size: 8px;
+
+  }
+ 
+  .new-interview-page .intellihire-name {
+
+    font-size: 14px;
+
+  }
+ 
+  .new-interview-page .intellihire-subtitle {
+
+    font-size: 8px;
+
+  }
+ 
+  .new-interview-header {
+
+    min-height: 64px;
+ 
+    padding: 8px 12px;
+
+  }
+ 
+  .new-interview-header h1 {
+
+    font-size: 19px;
+
+  }
+ 
+  .new-interview-header p {
+
+    font-size: 9px;
+
+  }
+ 
+  .candidate-input-wrapper input {
+
+    height: 34px;
+ 
+    font-size: 10px;
+
+  }
+ 
+  .form-field input,
+
+  .form-field select {
+
+    height: 34px;
+ 
+    font-size: 10px;
+
+  }
+ 
+  .candidate-field label,
+
+  .form-field label {
+
+    font-size: 10px;
+
+  }
+
+}
+ 
+ 
+/* =========================================================
+
+   ACCESSIBILITY / FOCUS
+
+========================================================= */
+ 
+.new-interview-page button:focus-visible,
+
+.new-interview-page input:focus-visible,
+
+.new-interview-page select:focus-visible {
+
+  outline: 2px solid rgba(7, 148, 71, 0.25);
+
+  outline-offset: 1px;
+
+}
+ 
+
+
+
+
+/* =========================================================
+
+   REVIEW & START PAGE
+
+   ========================================================= */
+ 
+
+ 
+ 
+.review-page {
+
+  min-height: 100vh;
+
+  background: #edf8ed;
+
+  color: #07194f;
+
+}
+ 
+ 
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.review-page-header {
+  display: flex;
+  align-items: center;
+
+  padding: 2px 20px;
+
+  background: #07194f !important;
+
+  border-bottom: 1px solid #07194f;
+
+  position: relative;
+
+  box-sizing: border-box;
+}
+
+ 
+ 
+/* =========================================================
+
+   BACK BUTTON
+
+   ========================================================= */
+/* =========================================================
+   REVIEW & START - BACK BUTTON
+   ========================================================= */
+
+.back-button {
+  width: 30px !important;
+  height: 30px !important;
+ 
+  margin-right: 16px;
+ 
+  border: 1.5px solid #dce4f1;
+  border-radius: 8px;
+ 
+  background: #159447;
+  color: #ffffff;
+ 
+  font-size: 25px;
+  font-weight: 900 !important;
+ 
+  -webkit-text-stroke: 1px #ffffff;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  cursor: pointer;
+  flex-shrink: 0;
+ 
+  line-height: 1;
+  padding: 0;
+  
+  padding-bottom: 5px !important;
+  
+}
+
+/* =========================================================
+
+   REVIEW TITLE
+
+   ========================================================= */
+ 
+.review-title {
+
+  margin-left: 14px;
+
+}
+ 
+.review-title h1 {
+
+  margin: 0;
+ 
+  font-size: 14px;
+
+  line-height: 1.2;
+
+  font-weight: 700;
+ 
+  color: #ffffff;
+
+}
+ 
+.review-title p {
+
+  margin: 1px 0 2px;
+ 
+  font-size: 12px;
+
+  line-height: 1.3;
+ 
+  color: #ffffff !important;
+
+}
+ 
+ 
+/* =========================================================
+
+   STEP INDICATOR
+
+   ========================================================= */
+ 
+.review-step-indicator {
+
+  margin-left: auto;
+ 
+  display: flex;
+
+  align-items: center;
+ 
+  gap: 12px;
+
+}
+ 
+ 
+/* =========================================================
+
+   STEP BUTTON
+
+   ========================================================= */
+ 
+.review-step {
+
+  border: none;
+
+  background: transparent;
+ 
+  padding: 0;
+ 
+  display: flex;
+
+  align-items: center;
+ 
+  gap: 8px;
+ 
+  cursor: pointer;
+ 
+  color: #07194f;
+
+  text-align: left;
+
+}
+ 
+.review-step-active {
+
+  cursor: default;
+
+}
+ 
+ 
+/* =========================================================
+
+   STEP NUMBER
+
+   ========================================================= */
+ 
+.review-step-number {
+
+  width: 34px;
+
+  height: 34px;
+ 
+  border-radius: 50%;
+
+  border: 2px solid #d6deeb;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  font-size: 14px;
+
+  font-weight: 700;
+ 
+  background: #ffffff;
+ 
+  box-sizing: border-box;
+
+}
+ 
+.review-step-active .review-step-number {
+
+  background: #008f4c;
+
+  border-color: #008f4c;
+
+  color: #ffffff;
+
+}
+ 
+ 
+/* =========================================================
+
+   STEP TEXT
+
+   ========================================================= */
+ 
+.review-step-text {
+
+  display: flex;
+
+  flex-direction: column;
+ 
+  gap: 2px;
+
+}
+ 
+.review-step-text strong {
+
+  font-size: 12px;
+
+  font-weight: 700;
+ 
+  color: #ffffff;
+
+}
+ 
+.review-step-active .review-step-text strong {
+
+  color: #ffffff !important;
+
+}
+ 
+.review-step-text span {
+
+  font-size: 10px;
+
+  color: #ffffff;
+
+}
+ 
+.review-step-active .review-step-text span {
+
+  color: #ffffff;
+
+}
+ 
+ 
+/* =========================================================
+
+   STEP LINE
+
+   ========================================================= */
+ 
+.review-step-line {
+
+  width: 45px;
+ 
+  border-top: 2px dashed #a9b7d0;
+
+}
+ 
+/* =========================================================
+
+   MAIN REVIEW AREA
+
+   ========================================================= */
+ 
+.review-main {
+
+  width: 100%;
+ 
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+ 
+  column-gap: 0;
+ 
+  padding: 2px 10px 40px;
+ 
+  box-sizing: border-box;
+
+}
+ 
+ 
+/* =========================================================
+
+   LEFT SIDE - CANDIDATE PREVIEW
+
+   ========================================================= */
+ 
+.review-left {
+
+  width: 100%;
+ 
+  padding-right: 12px;
+ 
+  box-sizing: border-box;
+
+}
+ 
+ 
+/* =========================================================
+
+   RIGHT SIDE - INTERVIEW QUESTIONS
+
+   ========================================================= */
+ 
+.review-right {
+
+  width: 100%;
+ 
+  padding-left: 32px;
+ 
+  box-sizing: border-box;
+ 
+  border-left: 1px solid #e4e9f0;
+
+}
+ 
+ 
+/* =========================================================
+
+   CANDIDATE PREVIEW
+
+   ========================================================= */
+ 
+.candidate-preview-card {
+  width: 100%;
+  max-width: 100%;
+  min-height: 650px;
+  box-sizing: border-box;
+  background: #ffffff;
+  padding: 0 0 30px;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+ 
+ 
+/* =========================================================
+
+   CANDIDATE PREVIEW HEADER
+
+   ========================================================= */
+ 
+.candidate-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 30px !important;
+  margin-top:7px !important;
+}
+ 
+.candidate-preview-icon {
+
+  width: 38px;
+
+  height: 38px;
+ 
+  border-radius: 50%;
+ 
+  background: #eaf7ef;
+
+  color: #008f4c;
+ 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  font-size: 18px;
+ 
+  flex-shrink: 0;
+
+}
+ 
+.candidate-preview-header h2 {
+
+  margin: 0;
+ 
+  color: #07194f;
+ 
+  font-size: 14px;
+
+  font-weight: 700;
+
+}
+ 
+.candidate-preview-header p {
+
+  margin: 1px 0 0;
+ 
+  color: #596987;
+ 
+  font-size: 12px;
+
+}
+ 
+ 
+/* =========================================================
+
+   DIVIDER
+
+   ========================================================= */
+ 
+.candidate-preview-divider {
+
+  height: 1px;
+ 
+  background: #e4e9f0;
+ 
+  margin: 6px 0;
+
+}
+ 
+ 
+/* =========================================================
+
+   PREVIEW SECTIONS
+
+   ========================================================= */
+ 
+.preview-section {
+
+  margin: 0;
+
+  padding: 0;
+
+}
+ 
+.preview-section h3 {
+
+  margin: 0 0 7px;
+ 
+  color: #008f4c;
+ 
+  font-size: 14px;
+
+  font-weight: 700;
+
+}
+ 
+
+/* =========================================================
+
+   DETAILS GRID
+
+   ========================================================= */
+ 
+.preview-details-grid {
+
+  display: flex;
+
+  flex-direction: column;
+ 
+  gap: 7px;
+
+}
+ 
+.preview-detail-row {
+
+  display: grid;
+ 
+  grid-template-columns: 125px minmax(0, 1fr);
+ 
+  column-gap: 10px;
+ 
+  align-items: start;
+ 
+  min-height: 20px;
+
+}
+ 
+.preview-detail-label {
+
+  display: flex;
+
+  align-items: center;
+ 
+  gap: 8px;
+ 
+  color: #172755;
+ 
+  font-size: 12px;
+
+  line-height: 1.4;
+
+}
+ 
+.preview-icon {
+
+  width: 17px;
+ 
+  color: #07194f;
+ 
+  font-size: 14px;
+ 
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+ 
+  flex-shrink: 0;
+
+}
+ 
+.preview-detail-row strong {
+
+  color: #07194f;
+ 
+  font-size: 12px;
+
+  line-height: 1.45;
+ 
+  font-weight: 600;
+ 
+  word-break: break-word;
+
+}
+ 
+ 
+/* =========================================================
+
+   KEY SKILLS
+
+   ========================================================= */
+ 
+.preview-skills-row {
+
+  align-items: start;
+
+}
+ 
+.preview-skills-row strong {
+
+  max-width: 100%;
+
+}
+ 
+ 
+/* =========================================================
+
+   ADDITIONAL INFORMATION
+
+   ========================================================= */
+ 
+.additional-preview-section {
+
+  padding-bottom: 2px;
+ 
+  margin-top: 0;
+
+}
+ 
+ 
+/* =========================================================
+
+   RIGHT SIDE - NUMBER OF QUESTIONS
+
+   ========================================================= */
+ 
+.question-settings {
+
+  padding-top: 8px;
+
+}
+ 
+.question-settings h2 {
+
+  margin: 0 0 6px;
+ 
+  color: #07194f;
+ 
+  font-size: 18px;
+
+  font-weight: 700;
+
+}
+ 
+.question-settings p {
+
+  margin: 0 0 16px;
+ 
+  color: #596987;
+ 
+  font-size: 12px;
+
+}
+ 
+ 
+/* =========================================================
+
+   QUESTION COUNT FIELD
+
+   ========================================================= */
+ 
+.question-count-field {
+
+  display: flex;
+
+  flex-direction: column;
+ 
+  gap: 7px;
+ 
+  max-width: 320px;
+
+}
+ 
+.question-count-field label {
+
+  color: #07194f;
+ 
+  font-size: 12px;
+
+  font-weight: 600;
+
+}
+ 
+.question-count-field select {
+
+  width: 100%;
+ 
+  height: 42px;
+ 
+  padding: 0 12px;
+ 
+  border: 1px solid #d7dfeb;
+
+  border-radius: 7px;
+ 
+  background: #ffffff;
+ 
+  color: #07194f;
+ 
+  font-size: 13px;
+ 
+  outline: none;
+ 
+  cursor: pointer;
+
+}
+ 
+.question-count-field select:focus {
+
+  border-color: #008f4c;
+
+}
+ 
+ 
+/* =========================================================
+
+   SAMPLE QUESTIONS
+
+   ========================================================= */
+ 
+.sample-questions-section {
+
+  margin-top: 28px;
+
+}
+ 
+.sample-questions-section h2 {
+
+  margin: 0 0 6px;
+ 
+  color: #07194f;
+ 
+  font-size: 18px;
+
+  font-weight: 700;
+
+}
+ 
+.sample-questions-divider {
+
+  width: 100%;
+ 
+  height: 1px;
+ 
+  background: #e4e9f0;
+ 
+  margin: 12px 0 16px;
+
+}
+ 
+ 
+/* =========================================================
+
+   QUESTION LIST
+
+   ========================================================= */
+ 
+.sample-question-list {
+
+  display: flex;
+
+  flex-direction: column;
+ 
+  gap: 10px;
+
+}
+ 
+.sample-question {
+
+  padding: 13px 15px;
+ 
+  border: 1px solid #e2e7ef;
+
+  border-radius: 7px;
+ 
+  background: #ffffff;
+ 
+  color: #07194f;
+ 
+  font-size: 12px;
+
+  line-height: 1.5;
+ 
+  box-sizing: border-box;
+
+}
+ 
+.sample-question:hover {
+
+  border-color: #cbd5e1;
+
+}
+
+.question-settings {
+  padding-bottom: 5px;
+  margin-bottom: 0;
+}
+
+.sample-questions-section {
+  margin-top: 0;
+}
+ 
+ 
+/* =========================================================
+
+   START INTERVIEW BUTTON
+
+   ========================================================= */
+ 
+.start-interview-button {
+
+  width: 100%;
+ 
+  margin-top: 24px;
+ 
+  height: 44px;
+ 
+  border: none;
+
+  border-radius: 7px;
+ 
+  background: #008f4c;
+
+  color: #ffffff;
+ 
+  font-size: 13px;
+
+  font-weight: 700;
+ 
+  cursor: pointer;
+
+}
+ 
+.start-interview-button:hover {
+
+  background: #007d42;
+
+}
+ 
+.start-interview-button:disabled {
+
+  background: #b8c7bf;
+
+  cursor: not-allowed;
+
+}
+ 
+ 
+/* =========================================================
+
+   RESPONSIVE
+
+   ========================================================= */
+ 
+@media (max-width: 1000px) {
+ 
+  .review-page-header {
+
+    flex-wrap: wrap;
+
+    gap: 20px;
+
+  }
+ 
+  .review-step-indicator {
+
+    width: 100%;
+
+    justify-content: flex-end;
+
+  }
+ 
+  .review-main {
+
+    grid-template-columns: 1fr;
+ 
+    padding: 8px 32px 30px;
+
+  }
+ 
+  .review-left {
+
+    padding-right: 0;
+
+  }
+ 
+  .review-right {
+
+    margin-top: 30px;
+ 
+    padding-left: 0;
+
+    padding-top: 30px;
+ 
+    border-left: none;
+
+    border-top: 1px solid #e4e9f0;
+
+  }
+ 
+  .candidate-preview-card {
+
+    padding: 2px 0 10px;
+
+
+  }
+
+}
+ 
+ 
+/* =========================================================
+
+   MOBILE
+
+   ========================================================= */
+ 
+@media (max-width: 650px) {
+ 
+  .review-page-header {
+
+    padding: 20px;
+
+  }
+ 
+  .review-title h1 {
+
+    font-size: 19px;
+
+  }
+ 
+  .review-step-indicator {
+
+    justify-content: flex-start;
+
+  }
+ 
+  .review-step-line {
+
+    width: 25px;
+
+  }
+ 
+  .review-main {
+
+    padding: 6px 20px 30px;
+
+  }
+ 
+  .candidate-preview-card {
+
+    padding: 4px 0 20px;
+
+  }
+ 
+  .preview-detail-row {
+
+    grid-template-columns: 1fr;
+ 
+    gap: 3px;
+
+  }
+ 
+  .preview-detail-row strong {
+
+    padding-left: 25px;
+
+  }
+ 
+  .review-right {
+
+    margin-top: 25px;
+
+    padding-top: 25px;
+
+  }
+ 
+  .question-count-field {
+
+    max-width: 100%;
+
+  }
+
+}
+ 
+
+
+/* =========================================================
+   LIVE INTERVIEW PAGE
+========================================================= */
+
+.live-interview-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #edf8ed;
+  color: #101a52;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   NAVBAR
+   Same compact style as Home
+========================================================= */
+
+.live-interview-page .live-interview-header {
+  height: 50px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 42px 0 28px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e5e9f2;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.live-interview-page .live-header-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+
+/* =========================================================
+   MIRAFRA LOGO
+========================================================= */
+
+.live-interview-page .mirafra-logo {
+  width: 125px;
+  line-height: 1;
+}
+
+.live-interview-page .mirafra-name {
+  font-size: 30px;
+  line-height: 31px;
+  font-weight: 500;
+  letter-spacing: 1px;
+
+  color: #159447;
+
+  margin-top: -5px;
+}
+
+.live-interview-page .mirafra-tech {
+  margin-top: 3px;
+  margin-left: -11px;
+
+  font-size: 14px;
+  line-height: 12px;
+  font-weight: 500;
+  letter-spacing: 2.7px;
+
+  color: #59646f;
+}
+
+
+/* =========================================================
+   HEADER DIVIDER
+========================================================= */
+
+.live-interview-page .header-divider {
+  height: 42px;
+  width: 1px;
+
+  background: #d9deea;
+
+  margin: 0 28px 0 14px;
+}
+
+
+/* =========================================================
+   INTELLIHIRE
+========================================================= */
+
+.live-interview-page .intellihire-brand {
+  line-height: 1.15;
+}
+
+.live-interview-page .intellihire-brand strong {
+  display: block;
+
+  color: #17205b;
+
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.live-interview-page .intellihire-brand span {
+  display: block;
+
+  color: #17205b;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  margin-top: 5px;
+}
+
+
+/* =========================================================
+   END INTERVIEW BUTTON
+========================================================= */
+
+.live-interview-page .end-interview-button {
+  height: 34px;
+
+  padding: 0 19px;
+
+  border: 1px solid #ef5b61;
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #e5484d;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.live-interview-page .end-interview-button:hover {
+  background: #fff5f5;
+}
+
+
+/* =========================================================
+   CANDIDATE INFORMATION BAR
+   Compact single-line layout
+========================================================= */
+
+.live-interview-page .candidate-info-bar {
+  width: 100%;
+
+  height: 45px;
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 8px 52px;
+
+  background: #07194f;
+
+  border-bottom: 1px solid #dce4e1;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CANDIDATE DETAILS
+========================================================= */
+
+.live-interview-page .candidate-details {
+  display: flex;
+  align-items: center;
+
+  gap: 28px;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   CANDIDATE NAME
+========================================================= */
+
+.live-interview-page .candidate-details h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 20px;
+  line-height: 22px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ROLE / DOMAIN / EXPERIENCE
+========================================================= */
+
+.live-interview-page .candidate-meta {
+  display: flex;
+  align-items: center;
+
+  gap: 24px;
+
+  white-space: nowrap;
+}
+
+.live-interview-page .candidate-meta span {
+  color: #ffffff;
+
+  font-size: 14px;
+  line-height: 18px;
+
+  white-space: nowrap;
+}
+
+.live-interview-page .candidate-meta strong {
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   QUESTION COUNTER
+========================================================= */
+
+.live-interview-page .question-counter {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  flex-shrink: 0;
+}
+
+.live-interview-page .question-counter strong {
+  color: #ffffff;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.live-interview-page .live-interview-content {
+  width: calc(100% - 20px);
+
+  max-width: 1700px;
+
+  margin: 0 auto;
+
+  padding: 0px 0 60px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.live-interview-page .live-section {
+  width: 100%;
+
+  margin-bottom: 27px;
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.live-interview-page .live-section-heading {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+
+  color: #49615d;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   QUESTION CARD
+========================================================= */
+
+.live-interview-page .live-question-card {
+  width: 100%;
+
+  min-height: 90px;
+
+  padding: 10px 10px;
+
+  background: #ffffff;
+
+  border: 1px solid #dce6e3;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 4px rgba(20, 50, 45, 0.03),
+    0 8px 22px rgba(20, 50, 45, 0.04);
+
+  box-sizing: border-box;
+}
+
+.live-interview-page .live-question-card h3 {
+  margin: 0 0 18px;
+
+  color: #07194f;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   FOLLOW-UP QUESTION
+========================================================= */
+
+.live-interview-page .followup-question-card {
+  border-left: 4px solid #008f4c;
+}
+
+
+/* =========================================================
+   ANSWER HEADING
+========================================================= */
+
+.live-interview-page .answer-heading {
+  margin-bottom: 0px;
+  margin-top: -25px;
+
+  color: #07194f;
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   ANSWER BOX
+========================================================= */
+
+.live-interview-page .answer-card {
+  width: 100%;
+
+  height: 335px;
+
+  padding: 18px 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #dce6e3;
+
+  border-radius: 12px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 2px 4px rgba(20, 50, 45, 0.025),
+    0 8px 22px rgba(20, 50, 45, 0.04);
+}
+
+
+/* =========================================================
+   ANSWER BOTTOM
+========================================================= */
+
+.live-interview-page .answer-bottom {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 10px;
+}
+
+
+/* =========================================================
+   SMALL SCORE
+========================================================= */
+
+.live-interview-page .small-score {
+  color: #000000;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+.live-interview-page .small-score strong {
+  color: #008f4c;
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   NEXT QUESTION
+========================================================= */
+
+.live-interview-page .next-question-button {
+  padding: 6px 16px;
+
+  margin-top: -5px;
+
+  border: 1px solid #008f4c;
+
+  border-radius: 6px;
+
+  background: #008f4c;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.live-interview-page .next-question-button:hover {
+  background: #067d3c;
+}
+
+.live-interview-page .next-question-button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .live-interview-page .live-interview-header {
+    padding: 0 30px;
+  }
+
+  .live-interview-page .candidate-info-bar {
+    padding: 13px 35px;
+  }
+
+  .live-interview-page .live-interview-content {
+    width: calc(100% - 70px);
+  }
+
+  .live-interview-page .candidate-meta {
+    gap: 18px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .live-interview-page .live-interview-header {
+    height: auto;
+
+    min-height: 50px;
+
+    padding: 10px 18px;
+  }
+
+  .live-interview-page .header-divider {
+    margin: 0 14px;
+  }
+
+  .live-interview-page .intellihire-brand {
+    display: none;
+  }
+
+  .live-interview-page .end-interview-button {
+    height: 32px;
+
+    padding: 0 13px;
+
+    font-size: 11px;
+  }
+
+  .live-interview-page .candidate-info-bar {
+    min-height: auto;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 15px 20px;
+  }
+
+  .live-interview-page .candidate-meta {
+    flex-wrap: wrap;
+
+    gap: 6px 16px;
+  }
+
+  .live-interview-page .question-counter {
+    width: 100%;
+
+    justify-content: space-between;
+  }
+
+  .live-interview-page .live-interview-content {
+    width: calc(100% - 30px);
+
+    padding-top: 22px;
+  }
+
+  .live-interview-page .live-question-card {
+    padding: 22px;
+
+    min-height: 140px;
+  }
+
+  .live-interview-page .live-question-card h3 {
+    font-size: 17px;
+  }
+
+  .live-interview-page .answer-card {
+    padding: 17px;
+  }
+
+}
+
+
+/* =========================================================
+   LIVE AUDIO STATUS
+========================================================= */
+
+.live-interview-page .answer-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 8px;
+  margin-top: -25px;
+
+  color: #07194f;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   AUDIO STATUS
+========================================================= */
+
+.live-interview-page .audio-live-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  color: #718096;
+
+  font-size: 11px;
+
+  font-weight: 600;
+}
+
+
+.live-interview-page .audio-live-status.active {
+  color: #008f4c;
+}
+
+
+/* =========================================================
+   AUDIO DOT
+========================================================= */
+
+.live-interview-page .audio-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #aab4bd;
+
+  display: inline-block;
+}
+
+
+.live-interview-page
+.audio-live-status.active
+.audio-dot {
+
+  background: #008f4c;
+
+  animation: audioPulse 1.2s infinite;
+}
+
+
+@keyframes audioPulse {
+
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.35;
+    transform: scale(0.75);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+/* =========================================================
+   LIVE TRANSCRIPT
+========================================================= */
+
+.live-interview-page .live-transcript {
+
+  width: 100%;
+
+  color: #17205b;
+
+  font-size: 15px;
+
+  line-height: 1.65;
+
+  font-weight: 500;
+
+  white-space: pre-wrap;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   EMPTY ANSWER
+========================================================= */
+
+.live-interview-page .answer-placeholder {
+
+  color: #a0a9b3;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   ANSWER CARD
+========================================================= */
+
+.live-interview-page .answer-card {
+
+  overflow-y: auto;
+}
+
+
+/* =========================================================
+   NEXT BUTTON DISABLED
+========================================================= */
+
+.live-interview-page
+.next-question-button:disabled {
+
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+
+
+/* =========================================================
+   LIVE INTERVIEW - SCROLLABLE CONTENT
+   ========================================================= */
+
+.live-interview-page {
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header stays visible */
+.live-interview-header {
+  flex-shrink: 0;
+}
+
+/* Main interview area */
+.live-interview-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 30px;
+  box-sizing: border-box;
+}
+
+/* Long questions/answers will wrap instead of
+   pushing the page outside the screen */
+.question-text,
+.answer-text {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* If question and answer are inside cards */
+.question-card,
+.answer-card {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Nice scrollbar */
+.live-interview-content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.live-interview-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.live-interview-content::-webkit-scrollbar-thumb {
+  background: #cbd2da;
+  border-radius: 10px;
+}
+
+.live-interview-content::-webkit-scrollbar-thumb:hover {
+  background: #98a2b3;
+}
+
+
+
+
+
+
+/* =========================================================
+   INTERVIEW ACTION BUTTONS
+========================================================= */
+
+.live-interview-page .interview-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+
+/* =========================================================
+   SKIP / NEXT QUESTION BUTTON
+========================================================= */
+
+.live-interview-page .answer-bottom {
+  width: 100%;
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 10px;
+
+  position: relative;
+  z-index: 10;
+
+  box-sizing: border-box;
+}
+
+.live-interview-page .interview-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-left: auto;
+
+  position: relative;
+  z-index: 20;
+}
+
+.live-interview-page .skip-question-button {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 120px;
+  min-width: 120px;
+  height: 32px;
+
+  padding: 0 14px;
+  margin: 0;
+
+  border: 1px solid #008f4c;
+  border-radius: 6px;
+
+  background: #ffffff;
+  color: #008f4c;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  position: relative;
+  z-index: 30;
+}
+
+.live-interview-page .skip-question-button:hover:not(:disabled) {
+  background: #edf8ed;
+}
+
+.live-interview-page .skip-question-button:disabled {
+  opacity: 0.45 !important;
+  cursor: not-allowed;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

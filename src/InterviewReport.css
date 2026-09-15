@@ -1,0 +1,1463 @@
+/* =========================================================
+   INTERVIEW REPORT
+   CLEAN PROFESSIONAL REPORT
+   ========================================================= */
+
+.report-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  background: rgba(24, 31, 34, 0.62);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   REPORT WINDOW
+   ========================================================= */
+
+.report-modal {
+  width: min(1040px, 94vw);
+  height: min(820px, 90vh);
+
+  background: #ffffff;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow:
+    0 24px 65px rgba(0, 0, 0, 0.28);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  color: #172033;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.report-header {
+  position: relative;
+
+  min-height: 72px;
+  height: 72px;
+
+  flex-shrink: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    190px
+    1fr
+    150px;
+
+  align-items: center;
+
+  padding:
+    0px
+    54px;
+
+  box-sizing: border-box;
+
+  border-bottom:
+    1px solid #e4e7eb;
+
+  background: #ffffff;
+}
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.report-brand {
+  width: 125px;
+  line-height: 1;
+}
+
+.mirafra-name {
+   font-size: 30px;
+   line-height: 31px;
+   font-weight: 500;
+   letter-spacing: 1px;
+
+   color: #159447;
+}
+
+.mirafra-technologies {
+   margin-top: 3px;
+   margin-left: -11px;
+
+   font-size: 14px;
+   line-height: 12px;
+   font-weight: 500;
+   letter-spacing: 2.7px;
+
+   color: #59646f;
+}
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.report-heading {
+  text-align: center;
+
+  min-width: 0;
+
+  padding: 0 20px;
+}
+
+.report-heading h1 {
+  margin: 0;
+
+  font-size: 22px;
+
+  line-height: 1.2;
+
+  font-weight: 700;
+
+  letter-spacing: -0.4px;
+
+  color: #14233f;
+}
+
+.report-generated {
+  margin-top: 5px;
+
+  font-size: 13px;
+
+  color: #7a8596;
+}
+
+.report-generated span {
+  margin: 0 7px;
+
+  color: #c3c8cf;
+}
+
+
+/* =========================================================
+   SCORE
+   ========================================================= */
+
+.report-score {
+  text-align: right;
+
+  padding-right: 34px;
+}
+
+.report-score > span {
+  display: block;
+
+  margin-bottom: 2px;
+
+  font-size: 11px;
+
+  color: #6f7b8d;
+
+  font-weight: 500;
+}
+
+.report-score strong {
+  font-size: 25px;
+
+  font-weight: 700;
+
+  color: #142c55;
+}
+
+.report-score small {
+  margin-left: 2px;
+
+  font-size: 12px;
+
+  color: #6f7b8d;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.report-close-button {
+  position: absolute;
+
+  top: 18px;
+  right: 14px;
+
+  width: 34px;
+  height: 34px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #f3f4f6;
+
+  color: #263142;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.report-close-button:hover {
+  background: #e7e9ec;
+
+  transform: rotate(4deg);
+}
+
+
+/* =========================================================
+   MAIN DOCUMENT
+   ========================================================= */
+
+.report-document {
+  flex: 1;
+
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding:
+    30px
+    58px
+    36px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  scrollbar-width: thin;
+  scrollbar-color: #c7cdd5 transparent;
+}
+
+.report-document::-webkit-scrollbar {
+  width: 7px;
+}
+
+.report-document::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.report-document::-webkit-scrollbar-thumb {
+  background: #c7cdd5;
+
+  border-radius: 10px;
+}
+
+.report-document::-webkit-scrollbar-thumb:hover {
+  background: #aeb6c0;
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.document-section {
+  width: 100%;
+
+  margin: 0 0 28px;
+
+  padding: 0;
+}
+
+.document-section h2,
+.report-column h2,
+.recommendation-section h2 {
+  margin:
+    0
+    0
+    13px;
+
+  font-size: 18px;
+
+  line-height: 1.25;
+
+  font-weight: 700;
+
+  color: #17253f;
+
+  letter-spacing: -0.2px;
+}
+
+
+/* =========================================================
+   CANDIDATE DETAILS
+   ========================================================= */
+
+.candidate-section {
+  padding-bottom: 20px;
+
+  margin-bottom: 27px;
+
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.candidate-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  column-gap: 60px;
+
+  row-gap: 0;
+}
+
+.candidate-field {
+  min-width: 0;
+
+  min-height: 36px;
+
+  display: grid;
+
+  grid-template-columns:
+    82px
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  border-bottom: 1px solid #edf0f2;
+}
+
+.candidate-field span {
+  font-size: 12px;
+
+  color: #7b8798;
+
+  font-weight: 500;
+}
+
+.candidate-field strong {
+  min-width: 0;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+
+  color: #263247;
+
+  font-weight: 600;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   TEXTAREAS
+   ========================================================= */
+
+.document-textarea {
+  width: 100%;
+
+  display: block;
+
+  box-sizing: border-box;
+
+  border: none;
+
+  outline: none;
+
+  resize: none;
+
+  background: transparent;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 13px;
+
+  line-height: 1.65;
+
+  color: #344054;
+
+  padding: 2px 0;
+
+  overflow: hidden;
+}
+
+.document-textarea:focus {
+  background: #fafbfc;
+}
+
+.document-textarea::placeholder,
+.list-textarea::placeholder {
+  color: #9aa4b2;
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.summary-input {
+  min-height: 82px;
+
+  height: 82px;
+}
+
+
+/* =========================================================
+   TWO COLUMN REPORT SECTIONS
+   ========================================================= */
+
+.two-column-section {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  column-gap: 58px;
+
+  align-items: start;
+
+  width: 100%;
+}
+
+.report-column {
+  min-width: 0;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   LIST
+   ========================================================= */
+
+.report-list {
+  margin: 0;
+
+  padding: 0;
+
+  width: 100%;
+}
+
+.editable-list-row {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    14px
+    minmax(0, 1fr)
+    22px;
+
+  column-gap: 6px;
+
+  align-items: start;
+
+  margin-bottom: 10px;
+
+  box-sizing: border-box;
+}
+
+.editable-list-row .bullet {
+  font-size: 13px;
+
+  line-height: 1.65;
+
+  color: #344054;
+
+  padding-top: 1px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   LIST TEXT
+   ========================================================= */
+
+.list-textarea {
+  width: 100%;
+
+  min-width: 0;
+
+  min-height: 25px;
+
+  height: auto;
+
+  max-height: none;
+
+  padding:
+    1px
+    0;
+
+  border: none;
+
+  outline: none;
+
+  resize: none;
+
+  background: transparent;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  color: #344054;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  /* Modern Chrome / Edge:
+     allows textarea to grow with content */
+  field-sizing: content;
+}
+
+.list-textarea:focus {
+  background: #fafbfc;
+
+  box-shadow:
+    inset 0 -1px 0 #d1d5db;
+}
+
+
+/* =========================================================
+   EMPTY MESSAGE
+   ========================================================= */
+
+.empty-report-message {
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  color: #8a94a3;
+
+  padding:
+    2px
+    0
+    7px;
+}
+
+
+/* =========================================================
+   REMOVE BUTTON
+   ========================================================= */
+
+.remove-item-button {
+  width: 22px;
+  height: 22px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #a2a9b3;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  border-radius: 4px;
+
+  opacity: 0;
+
+  transition:
+    opacity 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.editable-list-row:hover .remove-item-button {
+  opacity: 1;
+}
+
+.remove-item-button:hover {
+  background: #f1f3f5;
+
+  color: #344054;
+}
+
+
+/* =========================================================
+   ADD BUTTON
+   ========================================================= */
+
+.add-item-button {
+  width: 24px;
+  height: 24px;
+
+  margin-top: 2px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #68758a;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  border-radius: 4px;
+}
+
+.add-item-button:hover {
+  background: #f1f3f5;
+
+  color: #172033;
+}
+
+
+/* =========================================================
+   FEEDBACK
+   ========================================================= */
+
+.feedback-input {
+  min-height: 82px;
+
+  height: 82px;
+}
+
+
+/* =========================================================
+   RECOMMENDATION
+   ========================================================= */
+
+.recommendation-section {
+  margin-top: 24px;
+
+  padding:
+    22px
+    0
+    5px;
+
+  border-top: 1px solid #e1e5e9;
+}
+
+.recommendation-inner {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 25px;
+}
+
+.recommendation-inner h2 {
+  margin:
+    0
+    0
+    4px;
+}
+
+.recommendation-inner p {
+  margin: 0;
+
+  font-size: 12px;
+
+  color: #7a8596;
+}
+
+.recommendation-section select {
+  min-width: 180px;
+
+  height: 36px;
+
+  padding:
+    0
+    11px;
+
+  border:
+    1px solid #c9d0d8;
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #263247;
+
+  font-size: 12px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+.recommendation-section select:focus {
+  border-color: #68758a;
+
+  box-shadow:
+    0 0 0 2px rgba(104, 117, 138, 0.08);
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.report-error {
+  margin-top: 18px;
+
+  padding:
+    10px
+    13px;
+
+  background: #fff7ed;
+
+  color: #9a3412;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  border-left:
+    3px solid #f97316;
+
+  border-radius: 3px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.report-footer {
+  height: 66px;
+
+  min-height: 66px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding:
+    0
+    30px
+    0
+    34px;
+
+  box-sizing: border-box;
+
+  border-top: 1px solid #e1e5e9;
+
+  background: #ffffff;
+}
+
+.report-footer-date {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  font-size: 11.5px;
+
+  color: #758197;
+}
+
+.saved-message {
+  color: #16804d;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   FOOTER BUTTONS
+   ========================================================= */
+
+.report-footer-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+.save-report-button,
+.submit-report-button {
+  height: 38px;
+
+  padding:
+    0
+    16px;
+
+  border-radius: 7px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.save-report-button {
+  border:
+    1px solid #c5ccd5;
+
+  background: #ffffff;
+
+  color: #172033;
+}
+
+.save-report-button:hover {
+  background: #f8fafc;
+}
+
+.submit-report-button {
+  min-width: 142px;
+
+  border:
+    1px solid #111111;
+
+  background: #111111;
+
+  color: #ffffff;
+}
+
+.submit-report-button:hover {
+  background: #292929;
+}
+
+.save-report-button:disabled,
+.submit-report-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.report-loading-card {
+  width: 350px;
+
+  padding: 38px;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  text-align: center;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.report-loading-card h2 {
+  margin:
+    18px
+    0
+    8px;
+
+  font-size: 18px;
+
+  color: #172033;
+}
+
+.report-loading-card p {
+  margin: 0;
+
+  font-size: 12px;
+
+  color: #667085;
+}
+
+.report-spinner {
+  width: 30px;
+  height: 30px;
+
+  margin: 0 auto;
+
+  border:
+    3px solid #e5e7eb;
+
+  border-top-color:
+    #172033;
+
+  border-radius: 50%;
+
+  animation:
+    report-spin 0.8s linear infinite;
+}
+
+@keyframes report-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .report-modal {
+    width: 94vw;
+    height: 90vh;
+  }
+
+  .report-header {
+    grid-template-columns:
+      155px
+      minmax(0, 1fr)
+      115px;
+
+    padding:
+      0
+      40px;
+  }
+
+  .report-document {
+    padding:
+      28px
+      42px
+      32px;
+  }
+
+  .candidate-grid {
+    column-gap: 40px;
+  }
+
+  .two-column-section {
+    column-gap: 40px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+  .report-modal-overlay {
+    padding: 10px;
+  }
+
+  .report-modal {
+    width: 100%;
+    height: 94vh;
+
+    border-radius: 10px;
+  }
+
+  .report-header {
+    height: 95px;
+    min-height: 95px;
+
+    grid-template-columns:
+      130px
+      minmax(0, 1fr)
+      95px;
+
+    padding:
+      0
+      25px;
+  }
+
+  .mirafra-name {
+    font-size: 26px;
+  }
+
+  .mirafra-technologies {
+    font-size: 9px;
+
+    letter-spacing: 2px;
+  }
+
+  .report-heading h1 {
+    font-size: 21px;
+  }
+
+  .report-generated {
+    font-size: 10px;
+  }
+
+  .report-score strong {
+    font-size: 21px;
+  }
+
+  .report-document {
+    padding:
+      24px
+      30px
+      30px;
+  }
+
+  .candidate-grid {
+    column-gap: 25px;
+  }
+
+  .two-column-section {
+    column-gap: 25px;
+  }
+
+  .candidate-field {
+    grid-template-columns:
+      70px
+      minmax(0, 1fr);
+  }
+
+  .report-footer {
+    padding:
+      0
+      22px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .report-modal-overlay {
+    padding: 5px;
+  }
+
+  .report-modal {
+    width: 100%;
+    height: 98vh;
+
+    border-radius: 9px;
+  }
+
+  .report-header {
+    height: auto;
+    min-height: 145px;
+
+    grid-template-columns: 1fr;
+
+    text-align: center;
+
+    gap: 6px;
+
+    padding:
+      16px
+      20px;
+  }
+
+  .report-brand {
+    text-align: center;
+  }
+
+  .report-heading {
+    padding: 0;
+  }
+
+  .report-heading h1 {
+    font-size: 20px;
+  }
+
+  .report-generated {
+    font-size: 10px;
+  }
+
+  .report-score {
+    text-align: center;
+
+    padding: 0;
+  }
+
+  .report-score > span {
+    display: inline;
+
+    margin-right: 5px;
+  }
+
+  .report-score strong {
+    font-size: 20px;
+  }
+
+  .report-close-button {
+    top: 8px;
+    right: 8px;
+
+    width: 32px;
+    height: 32px;
+  }
+
+  .report-document {
+    padding:
+      20px
+      20px
+      28px;
+  }
+
+  .candidate-grid,
+  .two-column-section {
+    grid-template-columns: 1fr;
+
+    row-gap: 18px;
+  }
+
+  .candidate-field {
+    min-height: 34px;
+  }
+
+  .two-column-section {
+    row-gap: 28px;
+  }
+
+  .recommendation-inner {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 12px;
+  }
+
+  .recommendation-section select {
+    width: 100%;
+  }
+
+  .report-footer {
+    height: 62px;
+    min-height: 62px;
+
+    padding:
+      0
+      12px;
+  }
+
+  .report-footer-date {
+    display: none;
+  }
+
+  .report-footer-actions {
+    width: 100%;
+
+    justify-content: flex-end;
+  }
+
+  .save-report-button,
+  .submit-report-button {
+    height: 36px;
+
+    padding:
+      0
+      12px;
+  }
+}
+
+
+/* =========================================================
+   INTERVIEW TRANSCRIPT
+   ========================================================= */
+
+.transcript-section {
+  margin-top: 24px;
+}
+
+.section-description {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.transcript-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.transcript-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.transcript-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  background: #ffffff;
+}
+
+.transcript-question-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.transcript-question-number {
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  background: #f3f4f6;
+  padding: 5px 9px;
+  border-radius: 6px;
+}
+
+.transcript-followup-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.transcript-score {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.transcript-question,
+.transcript-answer,
+.transcript-feedback {
+  margin-top: 12px;
+}
+
+.transcript-question strong,
+.transcript-answer strong,
+.transcript-feedback strong {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.transcript-question p,
+.transcript-answer p,
+.transcript-feedback p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #1f2937;
+  white-space: pre-wrap;
+}
+
+.transcript-answer {
+  padding: 14px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.transcript-feedback {
+  padding-top: 4px;
+}
+
+.empty-transcript-message {
+  margin-top: 16px;
+  padding: 20px;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+
+
+/* =========================================================
+   TOP RIGHT REPORT ACTIONS
+   Download icon + Close icon
+========================================================= */
+
+.report-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: 16px;
+  flex-shrink: 0;
+}
+
+/* Download icon button */
+.report-download-button {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  color: #555;
+
+  border-radius: 8px;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.report-download-button:hover {
+  background: #f1f1f1;
+  color: #111;
+}
+
+/* Close X button */
+.report-close-button {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  color: #555;
+
+  border-radius: 8px;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.report-close-button:hover {
+  background: #f1f1f1;
+  color: #111;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.report-header {
+  display: flex;
+  align-items: center;
+}
+
+.report-heading {
+  flex: 1;
+}
+
+/* =========================================================
+   FOOTER
+   Only Save + Submit
+========================================================= */
+
+.report-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+
+
+
+
+.editable-score-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.overall-score-input {
+  width: 70px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: right;
+  color: inherit;
+  padding: 0;
+  font-family: inherit;
+}
+
+.overall-score-input::-webkit-outer-spin-button,
+.overall-score-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.overall-score-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.overall-score-input:focus {
+  border-bottom: 1px solid currentColor;
+}
+
