@@ -289,7 +289,7 @@ const ReviewStart: React.FC<ReviewStartProps> = ({
         --------------------------------------------- */
 
         const response = await fetch(
-          `http://localhost:8000/api/sample-questions?domain=${encodeURIComponent(
+          `https://intellihire-backend-pyb0.onrender.com/api/sample-questions?domain=${encodeURIComponent(
             domain
           )}&experience=${encodeURIComponent(
             experience
