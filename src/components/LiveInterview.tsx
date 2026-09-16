@@ -176,16 +176,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
     useRef(false);
 
   // =========================================================
-  // BROWSER MICROPHONE
-  // =========================================================
-
-  const mediaRecorderRef =
-    useRef<MediaRecorder | null>(null);
-
-  const microphoneStreamRef =
-    useRef<MediaStream | null>(null);
-
-  // =========================================================
   // TRANSCRIPT POLLING
   // =========================================================
 
@@ -225,7 +215,8 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   const [score, setScore] =
     useState<number | null>(null);
 
-  const [, setFeedback] = useState("");
+  const [, setFeedback] =
+    useState("");
 
   const [isEvaluating, setIsEvaluating] =
     useState(false);
@@ -373,7 +364,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         setQuestionNumber(1);
 
       } else if (parsed.question) {
-
         setQuestion(
           parsed.question
         );
@@ -382,14 +372,12 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           parsed.question;
 
       } else {
-
         setAudioStatus(
           "No interview questions available."
         );
       }
 
     } catch (error) {
-
       console.error(
         "Failed to parse interview data:",
         error
@@ -489,7 +477,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       );
 
     } catch (error) {
-
       console.error(
         "Failed to store interview answer:",
         error
@@ -498,14 +485,21 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   };
 
   // =========================================================
-  // START BROWSER + BACKEND AUDIO
+  // START TEAMS / SYSTEM AUDIO
+  // =========================================================
+  //
+  // IMPORTANT:
+  // There is NO browser microphone here.
+  // There is NO MediaRecorder here.
+  // The backend audio service is responsible for
+  // the Windows WASAPI loopback capture.
+  //
   // =========================================================
 
   const startAudioService =
     async () => {
 
       if (audioStartedRef.current) {
-
         console.log(
           "Audio service already running."
         );
@@ -514,7 +508,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       }
 
       if (audioStartingRef.current) {
-
         console.log(
           "Audio service start already in progress."
         );
@@ -531,28 +524,8 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
       try {
 
-        // ---------------------------------------------------
-        // REQUEST BROWSER MICROPHONE
-        // ---------------------------------------------------
-
         setAudioStatus(
-          "Requesting microphone access..."
-        );
-
-        const stream =
-          await navigator.mediaDevices.getUserMedia({
-            audio: true,
-          });
-
-        microphoneStreamRef.current =
-          stream;
-
-        // ---------------------------------------------------
-        // START BACKEND AUDIO SERVICE
-        // ---------------------------------------------------
-
-        setAudioStatus(
-          "Starting candidate audio..."
+          "Starting Teams candidate audio..."
         );
 
         const response =
@@ -578,7 +551,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           await response.json();
 
         console.log(
-          "Audio service started:",
+          "WASAPI audio service started:",
           result
         );
 
@@ -586,127 +559,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
           throw new Error(
             result.message ||
-            "Audio service failed to start."
+            "WASAPI audio service failed to start."
           );
         }
-
-        // ---------------------------------------------------
-        // CREATE MEDIA RECORDER
-        // ---------------------------------------------------
-
-        if (
-          typeof MediaRecorder ===
-          "undefined"
-        ) {
-
-          throw new Error(
-            "This browser does not support microphone recording."
-          );
-        }
-
-        let mimeType =
-          "audio/webm;codecs=opus";
-
-        if (
-          !MediaRecorder.isTypeSupported(
-            mimeType
-          )
-        ) {
-
-          mimeType =
-            "audio/webm";
-
-        }
-
-        if (
-          !MediaRecorder.isTypeSupported(
-            mimeType
-          )
-        ) {
-
-          throw new Error(
-            "Browser audio recording format is not supported."
-          );
-        }
-
-        const recorder =
-          new MediaRecorder(
-            stream,
-            {
-              mimeType,
-            }
-          );
-
-        mediaRecorderRef.current =
-          recorder;
-
-        // ---------------------------------------------------
-        // SEND AUDIO CHUNKS TO BACKEND
-        // ---------------------------------------------------
-
-        recorder.ondataavailable =
-          async (event) => {
-
-            if (
-              !event.data ||
-              event.data.size === 0 ||
-              interviewEndedRef.current
-            ) {
-
-              return;
-            }
-
-            try {
-
-              const formData =
-                new FormData();
-
-              formData.append(
-                "audio",
-                event.data,
-                "candidate-audio.webm"
-              );
-
-              const chunkResponse =
-                await fetch(
-                  `${API_BASE_URL}/api/audio/chunk`,
-                  {
-                    method: "POST",
-                    body: formData,
-                  }
-                );
-
-              if (!chunkResponse.ok) {
-
-                console.error(
-                  "Audio chunk upload failed:",
-                  chunkResponse.status
-                );
-              }
-
-            } catch (error) {
-
-              console.error(
-                "Audio chunk upload error:",
-                error
-              );
-            }
-          };
-
-        recorder.onerror =
-          (event) => {
-
-            console.error(
-              "MediaRecorder error:",
-              event
-            );
-          };
-
-        // ---------------------------------------------------
-        // RECORD EVERY 500 MS
-        // ---------------------------------------------------
-
-        recorder.start(500);
 
         audioStartedRef.current =
           true;
@@ -716,11 +571,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         );
 
         setAudioStatus(
-          "Listening to candidate..."
-        );
-
-        console.log(
-          "Browser microphone recording started."
+          "Listening to candidate from Teams..."
         );
 
         return true;
@@ -728,28 +579,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       } catch (error) {
 
         console.error(
-          "Audio service error:",
+          "Teams audio service error:",
           error
         );
-
-        // ---------------------------------------------------
-        // CLEANUP MICROPHONE IF START FAILED
-        // ---------------------------------------------------
-
-        if (
-          microphoneStreamRef.current
-        ) {
-
-          microphoneStreamRef.current
-            .getTracks()
-            .forEach(
-              (track) =>
-                track.stop()
-            );
-
-          microphoneStreamRef.current =
-            null;
-        }
 
         audioStartedRef.current =
           false;
@@ -761,7 +593,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         setAudioStatus(
           error instanceof Error
             ? error.message
-            : "Unable to start microphone."
+            : "Unable to start Teams candidate audio."
         );
 
         return false;
@@ -774,25 +606,25 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
     };
 
   // =========================================================
-  // STOP BROWSER + BACKEND AUDIO
+  // STOP TEAMS / SYSTEM AUDIO
   // =========================================================
 
   const stopAudioService =
     async () => {
 
       if (
-        !audioStartedRef.current &&
-        !mediaRecorderRef.current &&
-        !microphoneStreamRef.current
+        !audioStartedRef.current
       ) {
 
-        setIsListening(false);
+        setIsListening(
+          false
+        );
 
         return;
       }
 
       console.log(
-        "Stopping candidate audio..."
+        "Stopping Teams candidate audio..."
       );
 
       audioStartedRef.current =
@@ -801,59 +633,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       setIsListening(
         false
       );
-
-      // -----------------------------------------------------
-      // STOP MEDIA RECORDER
-      // -----------------------------------------------------
-
-      try {
-
-        if (
-          mediaRecorderRef.current
-        ) {
-
-          if (
-            mediaRecorderRef.current
-              .state !== "inactive"
-          ) {
-
-            mediaRecorderRef.current.stop();
-          }
-
-          mediaRecorderRef.current =
-            null;
-        }
-
-      } catch (error) {
-
-        console.error(
-          "Failed to stop MediaRecorder:",
-          error
-        );
-      }
-
-      // -----------------------------------------------------
-      // RELEASE MICROPHONE
-      // -----------------------------------------------------
-
-      if (
-        microphoneStreamRef.current
-      ) {
-
-        microphoneStreamRef.current
-          .getTracks()
-          .forEach(
-            (track) =>
-              track.stop()
-          );
-
-        microphoneStreamRef.current =
-          null;
-      }
-
-      // -----------------------------------------------------
-      // STOP BACKEND AUDIO
-      // -----------------------------------------------------
 
       try {
 
@@ -964,7 +743,8 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           return;
         }
 
-        const result: TranscriptResponse =
+        const result:
+          TranscriptResponse =
           await response.json();
 
         if (result.error) {
@@ -1005,7 +785,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
             );
 
             setAudioStatus(
-              "Listening to candidate..."
+              "Listening to candidate from Teams..."
             );
           }
 
@@ -1021,11 +801,11 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           ) {
 
             console.warn(
-              "Backend audio service stopped unexpectedly."
+              "WASAPI audio service stopped unexpectedly."
             );
 
             setAudioStatus(
-              "Audio service stopped."
+              "Teams audio service stopped."
             );
           }
         }
@@ -1055,7 +835,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       async () => {
 
         console.log(
-          "Initializing interview audio..."
+          "Initializing Teams candidate audio..."
         );
 
         const started =
@@ -1064,12 +844,10 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         if (
           !componentMountedRef.current
         ) {
-
           return;
         }
 
         if (!started) {
-
           return;
         }
 
@@ -1101,7 +879,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       stopTranscriptPolling();
 
       stopAudioService();
-
     };
 
   }, []);
@@ -1301,7 +1078,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
                 is_followup:
                   currentIsFollowup,
-
               }),
             }
           );
@@ -1524,7 +1300,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
             );
 
             setAudioStatus(
-              "Follow-up question — starting audio..."
+              "Follow-up question — starting Teams audio..."
             );
           }
         }
@@ -1598,7 +1374,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
             );
 
             setAudioStatus(
-              "New question — starting audio..."
+              "New question — starting Teams audio..."
             );
           }
         }
@@ -1622,7 +1398,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           false;
 
         // =====================================================
-        // START AUDIO AGAIN
+        // START TEAMS AUDIO AGAIN
         // =====================================================
 
         if (
@@ -1637,7 +1413,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
                 !componentMountedRef.current ||
                 interviewEndedRef.current
               ) {
-
                 return;
               }
 
@@ -1703,7 +1478,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
                 !componentMountedRef.current ||
                 interviewEndedRef.current
               ) {
-
                 return;
               }
 
@@ -1841,7 +1615,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
                 excludedQuestion:
                   questionRef.current,
-
               }),
             }
           );
@@ -1906,7 +1679,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         );
 
         setAudioStatus(
-          "New question — starting audio..."
+          "New question — starting Teams audio..."
         );
 
         if (
@@ -1921,7 +1694,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
                 !componentMountedRef.current ||
                 interviewEndedRef.current
               ) {
-
                 return;
               }
 
@@ -2264,7 +2036,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
               <div className="answer-placeholder">
 
                 {isListening
-                  ? "Listening to candidate..."
+                  ? "Listening to candidate from Teams..."
                   : "Candidate answer will appear here."}
 
               </div>
