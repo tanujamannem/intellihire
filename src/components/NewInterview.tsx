@@ -266,7 +266,7 @@ const NewInterview: React.FC<NewInterviewProps> = ({
       );
  
       const response = await fetch(
-  "https://intellihire-backend-pyb0.onrender.com/api/analyze-resume",
+  "https://intellihire-backend-pyb0.onrender.com/api/analyze-resume", 
  
         {
  
