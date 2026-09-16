@@ -61,10 +61,6 @@ interface AnswerResult {
   message?: string;
 }
 
-/* =========================================================
-   TRANSCRIPT RESPONSE
-   ========================================================= */
-
 interface TranscriptResponse {
   success?: boolean;
   running?: boolean;
@@ -72,10 +68,6 @@ interface TranscriptResponse {
   final_transcript?: string;
   error?: string;
 }
-
-/* =========================================================
-   STORED INTERVIEW ANSWER
-   ========================================================= */
 
 interface InterviewAnswer {
   questionNumber: number;
@@ -86,25 +78,14 @@ interface InterviewAnswer {
   isFollowup: boolean;
 }
 
-/* =========================================================
-   STORED REPORT DATA
-   ========================================================= */
-
 interface InterviewReportData {
   sessionId?: string;
-
   candidate?: CandidateData;
-
   role?: string;
-
   domain?: string;
-
   experience?: string;
-
   totalQuestions: number;
-
   answers: InterviewAnswer[];
-
   completedAt?: string;
 }
 
@@ -112,7 +93,8 @@ interface InterviewReportData {
    API
    ========================================================= */
 
-const API_BASE_URL = "https://intellihire-backend-pyb0.onrender.com";
+const API_BASE_URL =
+  "https://intellihire-backend-pyb0.onrender.com";
 
 /* =========================================================
    SESSION STORAGE KEY
@@ -194,6 +176,16 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
     useRef(false);
 
   // =========================================================
+  // BROWSER MICROPHONE
+  // =========================================================
+
+  const mediaRecorderRef =
+    useRef<MediaRecorder | null>(null);
+
+  const microphoneStreamRef =
+    useRef<MediaStream | null>(null);
+
+  // =========================================================
   // TRANSCRIPT POLLING
   // =========================================================
 
@@ -215,19 +207,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   // =========================================================
   // EARLY ENDING
   // =========================================================
-
-  /*
-   * This ref is different from interviewEndedRef.
-   *
-   * interviewEndedRef:
-   *   Prevents audio/transcript activity after the interview
-   *   has ended.
-   *
-   * endingInterviewRef:
-   *   Tells submitAnswer that the candidate explicitly clicked
-   *   End Interview and that the current answer should be
-   *   evaluated, stored, and then the interview should finish.
-   */
 
   const endingInterviewRef =
     useRef(false);
@@ -290,10 +269,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       interviewDataRef.current =
         parsed;
 
-      // -------------------------------------------------------
-      // TOTAL QUESTIONS
-      // -------------------------------------------------------
-
       const configuredQuestionCount =
         parsed.interviewSettings
           ?.numberOfQuestions ||
@@ -304,10 +279,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       setTotalQuestions(
         configuredQuestionCount
       );
-
-      // -------------------------------------------------------
-      // INITIALIZE REPORT STORAGE
-      // -------------------------------------------------------
 
       const existingReport =
         sessionStorage.getItem(
@@ -321,14 +292,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           const existingData:
             InterviewReportData =
             JSON.parse(existingReport);
-
-          /*
-           * If the same interview session already exists,
-           * keep the existing answers.
-           *
-           * This prevents accidental deletion if the
-           * component gets mounted again.
-           */
 
           if (
             existingData.sessionId &&
@@ -386,10 +349,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           "New interview report storage initialized."
         );
       }
-
-      // -------------------------------------------------------
-      // FIRST QUESTION
-      // -------------------------------------------------------
 
       const generatedQuestions =
         parsed.sampleQuestions || [];
@@ -492,14 +451,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         };
       }
 
-      /*
-       * Add the new answer.
-       *
-       * We use question + question number +
-       * follow-up status to avoid accidentally
-       * storing the exact same answer twice.
-       */
-
       const alreadyStored =
         reportData.answers.some(
           (existingAnswer) =>
@@ -547,7 +498,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   };
 
   // =========================================================
-  // START BACKEND AUDIO
+  // START BROWSER + BACKEND AUDIO
   // =========================================================
 
   const startAudioService =
@@ -580,12 +531,28 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
       try {
 
+        // ---------------------------------------------------
+        // REQUEST BROWSER MICROPHONE
+        // ---------------------------------------------------
+
         setAudioStatus(
-          "Starting candidate audio..."
+          "Requesting microphone access..."
         );
 
-        console.log(
-          "Starting backend audio service..."
+        const stream =
+          await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+
+        microphoneStreamRef.current =
+          stream;
+
+        // ---------------------------------------------------
+        // START BACKEND AUDIO SERVICE
+        // ---------------------------------------------------
+
+        setAudioStatus(
+          "Starting candidate audio..."
         );
 
         const response =
@@ -623,13 +590,137 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           );
         }
 
+        // ---------------------------------------------------
+        // CREATE MEDIA RECORDER
+        // ---------------------------------------------------
+
+        if (
+          typeof MediaRecorder ===
+          "undefined"
+        ) {
+
+          throw new Error(
+            "This browser does not support microphone recording."
+          );
+        }
+
+        let mimeType =
+          "audio/webm;codecs=opus";
+
+        if (
+          !MediaRecorder.isTypeSupported(
+            mimeType
+          )
+        ) {
+
+          mimeType =
+            "audio/webm";
+
+        }
+
+        if (
+          !MediaRecorder.isTypeSupported(
+            mimeType
+          )
+        ) {
+
+          throw new Error(
+            "Browser audio recording format is not supported."
+          );
+        }
+
+        const recorder =
+          new MediaRecorder(
+            stream,
+            {
+              mimeType,
+            }
+          );
+
+        mediaRecorderRef.current =
+          recorder;
+
+        // ---------------------------------------------------
+        // SEND AUDIO CHUNKS TO BACKEND
+        // ---------------------------------------------------
+
+        recorder.ondataavailable =
+          async (event) => {
+
+            if (
+              !event.data ||
+              event.data.size === 0 ||
+              interviewEndedRef.current
+            ) {
+
+              return;
+            }
+
+            try {
+
+              const formData =
+                new FormData();
+
+              formData.append(
+                "audio",
+                event.data,
+                "candidate-audio.webm"
+              );
+
+              const chunkResponse =
+                await fetch(
+                  `${API_BASE_URL}/api/audio/chunk`,
+                  {
+                    method: "POST",
+                    body: formData,
+                  }
+                );
+
+              if (!chunkResponse.ok) {
+
+                console.error(
+                  "Audio chunk upload failed:",
+                  chunkResponse.status
+                );
+              }
+
+            } catch (error) {
+
+              console.error(
+                "Audio chunk upload error:",
+                error
+              );
+            }
+          };
+
+        recorder.onerror =
+          (event) => {
+
+            console.error(
+              "MediaRecorder error:",
+              event
+            );
+          };
+
+        // ---------------------------------------------------
+        // RECORD EVERY 500 MS
+        // ---------------------------------------------------
+
+        recorder.start(500);
+
         audioStartedRef.current =
           true;
 
-        setIsListening(true);
+        setIsListening(
+          true
+        );
 
         setAudioStatus(
           "Listening to candidate..."
+        );
+
+        console.log(
+          "Browser microphone recording started."
         );
 
         return true;
@@ -641,15 +732,36 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           error
         );
 
+        // ---------------------------------------------------
+        // CLEANUP MICROPHONE IF START FAILED
+        // ---------------------------------------------------
+
+        if (
+          microphoneStreamRef.current
+        ) {
+
+          microphoneStreamRef.current
+            .getTracks()
+            .forEach(
+              (track) =>
+                track.stop()
+            );
+
+          microphoneStreamRef.current =
+            null;
+        }
+
         audioStartedRef.current =
           false;
 
-        setIsListening(false);
+        setIsListening(
+          false
+        );
 
         setAudioStatus(
           error instanceof Error
             ? error.message
-            : "Unable to start audio service."
+            : "Unable to start microphone."
         );
 
         return false;
@@ -662,13 +774,17 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
     };
 
   // =========================================================
-  // STOP BACKEND AUDIO
+  // STOP BROWSER + BACKEND AUDIO
   // =========================================================
 
   const stopAudioService =
     async () => {
 
-      if (!audioStartedRef.current) {
+      if (
+        !audioStartedRef.current &&
+        !mediaRecorderRef.current &&
+        !microphoneStreamRef.current
+      ) {
 
         setIsListening(false);
 
@@ -682,7 +798,62 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       audioStartedRef.current =
         false;
 
-      setIsListening(false);
+      setIsListening(
+        false
+      );
+
+      // -----------------------------------------------------
+      // STOP MEDIA RECORDER
+      // -----------------------------------------------------
+
+      try {
+
+        if (
+          mediaRecorderRef.current
+        ) {
+
+          if (
+            mediaRecorderRef.current
+              .state !== "inactive"
+          ) {
+
+            mediaRecorderRef.current.stop();
+          }
+
+          mediaRecorderRef.current =
+            null;
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Failed to stop MediaRecorder:",
+          error
+        );
+      }
+
+      // -----------------------------------------------------
+      // RELEASE MICROPHONE
+      // -----------------------------------------------------
+
+      if (
+        microphoneStreamRef.current
+      ) {
+
+        microphoneStreamRef.current
+          .getTracks()
+          .forEach(
+            (track) =>
+              track.stop()
+          );
+
+        microphoneStreamRef.current =
+          null;
+      }
+
+      // -----------------------------------------------------
+      // STOP BACKEND AUDIO
+      // -----------------------------------------------------
 
       try {
 
@@ -796,10 +967,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         const result: TranscriptResponse =
           await response.json();
 
-        // -----------------------------------------------------
-        // AUDIO SERVICE ERROR
-        // -----------------------------------------------------
-
         if (result.error) {
 
           console.error(
@@ -814,18 +981,10 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           return;
         }
 
-        // -----------------------------------------------------
-        // CURRENT TRANSCRIPT
-        // -----------------------------------------------------
-
         const text =
           result.transcript ||
           result.final_transcript ||
           "";
-
-        // -----------------------------------------------------
-        // UPDATE ANSWER BOX
-        // -----------------------------------------------------
 
         if (text.trim()) {
 
@@ -837,15 +996,13 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           );
         }
 
-        // -----------------------------------------------------
-        // AUDIO STATUS
-        // -----------------------------------------------------
-
         if (result.running) {
 
           if (!isEvaluating) {
 
-            setIsListening(true);
+            setIsListening(
+              true
+            );
 
             setAudioStatus(
               "Listening to candidate..."
@@ -854,7 +1011,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
         } else {
 
-          setIsListening(false);
+          setIsListening(
+            false
+          );
 
           if (
             audioStartedRef.current &&
@@ -942,6 +1101,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       stopTranscriptPolling();
 
       stopAudioService();
+
     };
 
   }, []);
@@ -950,14 +1110,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   // FINALIZE INTERVIEW
   // =========================================================
 
-  /*
-   * This function is responsible only for finishing the
-   * interview AFTER all required answers have already been
-   * stored/evaluated.
-   *
-   * It does not create or evaluate unanswered questions.
-   */
-
   const finalizeInterview =
     async () => {
 
@@ -965,21 +1117,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         "Finalizing interview..."
       );
 
-      // -------------------------------------------------------
-      // STOP TRANSCRIPT POLLING
-      // -------------------------------------------------------
-
       stopTranscriptPolling();
 
-      // -------------------------------------------------------
-      // STOP AUDIO
-      // -------------------------------------------------------
-
       await stopAudioService();
-
-      // -------------------------------------------------------
-      // MARK REPORT AS COMPLETED
-      // -------------------------------------------------------
 
       try {
 
@@ -1031,10 +1171,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       endingInterviewRef.current =
         false;
 
-      // -------------------------------------------------------
-      // OPEN REPORT
-      // -------------------------------------------------------
-
       if (onComplete) {
         onComplete();
       }
@@ -1080,25 +1216,15 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       processingAnswerRef.current =
         true;
 
-      setIsEvaluating(true);
-
-      /*
-       * Keep evaluation processing fast and neutral.
-       */
+      setIsEvaluating(
+        true
+      );
 
       setAudioStatus(
         "Processing response..."
       );
 
-      // -------------------------------------------------------
-      // STOP TRANSCRIPT POLLING
-      // -------------------------------------------------------
-
       stopTranscriptPolling();
-
-      // -------------------------------------------------------
-      // STOP AUDIO WHILE EVALUATING
-      // -------------------------------------------------------
 
       await stopAudioService();
 
@@ -1109,14 +1235,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
         const currentQuestion =
           questionRef.current;
-
-        /*
-         * IMPORTANT:
-         * Capture the follow-up state BEFORE changing it.
-         *
-         * This ensures the backend knows whether the answer
-         * belongs to the main question or its follow-up.
-         */
 
         const currentIsFollowup =
           isFollowupRef.current;
@@ -1139,10 +1257,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         const referenceQuestions =
           data.sampleQuestions ||
           [];
-
-        // =====================================================
-        // SEND ANSWER TO BACKEND
-        // =====================================================
 
         const response =
           await fetch(
@@ -1187,6 +1301,7 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
                 is_followup:
                   currentIsFollowup,
+
               }),
             }
           );
@@ -1211,10 +1326,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           result
         );
 
-        // =====================================================
-        // SCORE
-        // =====================================================
-
         const answerScore =
           result.score ?? null;
 
@@ -1228,10 +1339,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         setFeedback(
           answerFeedback
         );
-
-        // =====================================================
-        // STORE ANSWER + TRANSCRIPT
-        // =====================================================
 
         storeInterviewAnswer({
           questionNumber:
@@ -1257,20 +1364,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         // EARLY END
         // =====================================================
 
-        /*
-         * If the candidate clicked End Interview while
-         * answering this question, the current answer has now
-         * been evaluated and stored.
-         *
-         * DO NOT:
-         * - generate a follow-up
-         * - move to the next question
-         * - restart audio
-         *
-         * Simply finalize the interview.
-         */
-
-        if (endingInterviewRef.current) {
+        if (
+          endingInterviewRef.current
+        ) {
 
           console.log(
             "Final answer evaluated. Ending interview."
@@ -1299,17 +1395,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         // FOLLOW-UP SAFETY LOGIC
         // =====================================================
 
-        /*
-         * This is the follow-up logic taken from the NEW code.
-         *
-         * For a normal/main question:
-         *   score < 4 + follow-up question exists
-         *   => stay on the same question and show follow-up.
-         *
-         * For a follow-up:
-         *   NEVER create another follow-up.
-         */
-
         const returnedFollowupQuestion =
           (
             result.followup_question ||
@@ -1318,7 +1403,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           ).trim();
 
         const currentScore =
-          Number(result.score ?? 0);
+          Number(
+            result.score ?? 0
+          );
 
         const shouldFollowup =
           !currentIsFollowup &&
@@ -1330,17 +1417,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         // =====================================================
         // FINAL QUESTION
         // =====================================================
-
-        /*
-         * Keep the OLD final-question behavior.
-         *
-         * The final question is stored and the interview is
-         * marked completed. The user can then click End Interview.
-         *
-         * IMPORTANT:
-         * This happens after storing the answer and before moving
-         * to another main question.
-         */
 
         if (
           currentQuestionNumber >=
@@ -1356,15 +1432,12 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
             "All questions completed. You can end the interview."
           );
 
-          setIsEvaluating(false);
+          setIsEvaluating(
+            false
+          );
 
           processingAnswerRef.current =
             false;
-
-          /*
-           * Keep interviewEndedRef false here because the
-           * End Interview button is still supposed to be used.
-           */
 
           interviewEndedRef.current =
             false;
@@ -1394,7 +1467,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
             "Interview completed. You can end the interview."
           );
 
-          setIsEvaluating(false);
+          setIsEvaluating(
+            false
+          );
 
           processingAnswerRef.current =
             false;
@@ -1414,21 +1489,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         // FOLLOW-UP
         // =====================================================
 
-        /*
-         * IMPORTANT:
-         *
-         * We check BOTH:
-         *
-         * 1. result.action === "followup"
-         * 2. shouldFollowup
-         *
-         * This makes the frontend robust if the backend returns
-         * the follow-up question with the expected score but does
-         * not explicitly set action = "followup".
-         */
-
         if (
-          result.action === "followup" ||
+          result.action ===
+            "followup" ||
           shouldFollowup
         ) {
 
@@ -1445,11 +1508,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
             questionRef.current =
               followup;
-
-            /*
-             * Follow-up belongs to the SAME
-             * main question number.
-             */
 
             questionNumberRef.current =
               currentQuestionNumber;
@@ -1469,33 +1527,15 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
               "Follow-up question — starting audio..."
             );
           }
-
-          /*
-           * IMPORTANT:
-           *
-           * Do NOT return here.
-           *
-           * The old code continues into the common cleanup
-           * and audio restart section.
-           */
         }
 
         // =====================================================
         // NEXT QUESTION
         // =====================================================
 
-        /*
-         * Only move to the next question when:
-         *
-         * - backend says "next"
-         * - AND we are NOT forcing a follow-up
-         *
-         * This prevents a low-scoring main question from
-         * accidentally advancing to the next question.
-         */
-
         if (
-          result.action === "next" &&
+          result.action ===
+            "next" &&
           !shouldFollowup
         ) {
 
@@ -1504,10 +1544,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
           const nextNumber =
             currentQuestionNumber + 1;
-
-          // ---------------------------------------------------
-          // SAFETY CHECK
-          // ---------------------------------------------------
 
           if (
             nextNumber >
@@ -1518,7 +1554,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
               "All questions completed. You can end the interview."
             );
 
-            setIsEvaluating(false);
+            setIsEvaluating(
+              false
+            );
 
             processingAnswerRef.current =
               false;
@@ -1537,11 +1575,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           if (
             nextQuestion
           ) {
-
-            /*
-             * We are moving to a NEW main question.
-             * Therefore reset follow-up state.
-             */
 
             isFollowupRef.current =
               false;
@@ -1645,14 +1678,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         processingAnswerRef.current =
           false;
 
-        /*
-         * If the candidate was trying to end the interview,
-         * do not silently restart the interview after an error.
-         *
-         * The candidate can retry End Interview.
-         */
-
-        if (endingInterviewRef.current) {
+        if (
+          endingInterviewRef.current
+        ) {
 
           interviewEndedRef.current =
             false;
@@ -1662,10 +1690,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
           return;
         }
-
-        // -----------------------------------------------------
-        // TRY TO RESTART AUDIO
-        // -----------------------------------------------------
 
         if (
           componentMountedRef.current &&
@@ -1703,14 +1727,13 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
     };
 
   // =========================================================
-  // SUBMIT / CONTINUE BUTTON
+  // SUBMIT / CONTINUE
   // =========================================================
 
   const handleNextQuestion =
     () => {
 
       if (isEvaluating) {
-
         return;
       }
 
@@ -1730,309 +1753,241 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         answer
       );
     };
-    
-    
-// =========================================================
-// NEXT QUESTION / SKIP CURRENT QUESTION
-// =========================================================
-//
-// This does NOT submit or evaluate the current question.
-//
-// It asks the backend to generate a completely NEW question.
-// The question number stays the SAME.
-//
-// Example:
-//
-// Question 2
-//      ↓
-// Next Question
-//      ↓
-// NEW question
-//      ↓
-// Still Question 2
-//
-// The skipped question is never stored.
-// =========================================================
 
-const handleSkipToNextQuestion =
-  async () => {
+  // =========================================================
+  // SKIP CURRENT QUESTION
+  // =========================================================
 
-    if (isEvaluating) {
-      return;
-    }
+  const handleSkipToNextQuestion =
+    async () => {
 
-    if (processingAnswerRef.current) {
-      return;
-    }
-
-    if (interviewCompleted) {
-      return;
-    }
-
-    const data =
-      interviewDataRef.current;
-
-    if (!data) {
-
-      setAudioStatus(
-        "Interview data is unavailable."
-      );
-
-      return;
-    }
-
-    console.log(
-      "Skipping current question and generating a NEW question..."
-    );
-
-    // -------------------------------------------------------
-    // STOP CURRENT AUDIO / TRANSCRIPT
-    // -------------------------------------------------------
-
-    stopTranscriptPolling();
-
-    await stopAudioService();
-
-    // -------------------------------------------------------
-    // CLEAR CURRENT ANSWER
-    // -------------------------------------------------------
-
-    transcriptRef.current =
-      "";
-
-    setTranscript(
-      ""
-    );
-
-    setScore(
-      null
-    );
-
-    setFeedback(
-      ""
-    );
-
-    setAudioStatus(
-      "Generating a new question..."
-    );
-
-    try {
-
-      // -----------------------------------------------------
-      // ASK BACKEND FOR ONE COMPLETELY NEW QUESTION
-      // -----------------------------------------------------
-
-      const response =
-        await fetch(
-          `${API_BASE_URL}/api/generate-interview-questions`,
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
-
-            body: JSON.stringify({
-
-              candidate:
-                data.candidate || {},
-
-              formData:
-                data.formData || {},
-
-              numberOfQuestions:
-                1,
-
-              generateSingleQuestion:
-                true,
-
-              excludedQuestion:
-                questionRef.current,
-
-            }),
-          }
-        );
-
-      // -----------------------------------------------------
-      // HTTP ERROR
-      // -----------------------------------------------------
-
-      if (!response.ok) {
-
-        const errorText =
-          await response.text();
-
-        throw new Error(
-          errorText ||
-          "Failed to generate a new question."
-        );
+      if (isEvaluating) {
+        return;
       }
 
-      // -----------------------------------------------------
-      // READ RESPONSE
-      // -----------------------------------------------------
+      if (processingAnswerRef.current) {
+        return;
+      }
 
-      const result =
-        await response.json();
+      if (interviewCompleted) {
+        return;
+      }
+
+      const data =
+        interviewDataRef.current;
+
+      if (!data) {
+
+        setAudioStatus(
+          "Interview data is unavailable."
+        );
+
+        return;
+      }
 
       console.log(
-        "Replacement question response:",
-        result
+        "Skipping current question and generating a NEW question..."
       );
 
-      // -----------------------------------------------------
-      // GET NEW QUESTION
-      // -----------------------------------------------------
+      stopTranscriptPolling();
 
-      const newQuestion =
-        result.questions?.[0] ||
-        result.question ||
+      await stopAudioService();
+
+      transcriptRef.current =
         "";
 
-      if (!newQuestion) {
-
-        throw new Error(
-          "No new question was generated."
-        );
-      }
-
-      // -----------------------------------------------------
-      // SET NEW QUESTION
-      //
-      // IMPORTANT:
-      //
-      // questionNumberRef is NOT changed.
-      // setQuestionNumber is NOT changed.
-      //
-      // Therefore:
-      //
-      // Q2 → Skip → NEW QUESTION still = Q2
-      // Q10 → Skip → NEW QUESTION still = Q10
-      // -----------------------------------------------------
-
-      questionRef.current =
-        newQuestion;
-
-      setQuestion(
-        newQuestion
+      setTranscript(
+        ""
       );
 
-      // -----------------------------------------------------
-      // RESET FOLLOW-UP
-      // -----------------------------------------------------
-
-      isFollowupRef.current =
-        false;
-
-      setIsFollowup(
-        false
+      setScore(
+        null
       );
 
-      console.log(
-        "New replacement question:",
-        newQuestion
-      );
-
-      console.log(
-        "Question number remains:",
-        questionNumberRef.current
-      );
-
-      console.log(
-        "Skipped question was NOT stored or evaluated."
+      setFeedback(
+        ""
       );
 
       setAudioStatus(
-        "New question — starting audio..."
+        "Generating a new question..."
       );
 
-      // -----------------------------------------------------
-      // START AUDIO AGAIN
-      // -----------------------------------------------------
+      try {
 
-      if (
-        componentMountedRef.current &&
-        !interviewEndedRef.current
-      ) {
+        const response =
+          await fetch(
+            `${API_BASE_URL}/api/generate-interview-questions`,
+            {
+              method: "POST",
 
-        setTimeout(
-          async () => {
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
 
-            if (
-              !componentMountedRef.current ||
-              interviewEndedRef.current
-            ) {
-              return;
+              body: JSON.stringify({
+
+                candidate:
+                  data.candidate || {},
+
+                formData:
+                  data.formData || {},
+
+                numberOfQuestions:
+                  1,
+
+                generateSingleQuestion:
+                  true,
+
+                excludedQuestion:
+                  questionRef.current,
+
+              }),
             }
+          );
 
-            const started =
-              await startAudioService();
+        if (!response.ok) {
 
-            if (
-              started &&
-              componentMountedRef.current &&
-              !interviewEndedRef.current
-            ) {
+          const errorText =
+            await response.text();
 
-              startTranscriptPolling();
-            }
+          throw new Error(
+            errorText ||
+            "Failed to generate a new question."
+          );
+        }
 
-          },
-          300
+        const result =
+          await response.json();
+
+        console.log(
+          "Replacement question response:",
+          result
         );
-      }
 
-    } catch (error) {
+        const newQuestion =
+          result.questions?.[0] ||
+          result.question ||
+          "";
 
-      console.error(
-        "Failed to generate replacement question:",
-        error
-      );
+        if (!newQuestion) {
 
-      setAudioStatus(
-        error instanceof Error
-          ? error.message
-          : "Unable to generate a new question."
-      );
+          throw new Error(
+            "No new question was generated."
+          );
+        }
 
-      // -----------------------------------------------------
-      // RESTART AUDIO IF GENERATION FAILS
-      // -----------------------------------------------------
+        questionRef.current =
+          newQuestion;
 
-      if (
-        componentMountedRef.current &&
-        !interviewEndedRef.current
-      ) {
-
-        setTimeout(
-          async () => {
-
-            if (
-              !componentMountedRef.current ||
-              interviewEndedRef.current
-            ) {
-              return;
-            }
-
-            const started =
-              await startAudioService();
-
-            if (
-              started &&
-              componentMountedRef.current &&
-              !interviewEndedRef.current
-            ) {
-
-              startTranscriptPolling();
-            }
-
-          },
-          300
+        setQuestion(
+          newQuestion
         );
+
+        isFollowupRef.current =
+          false;
+
+        setIsFollowup(
+          false
+        );
+
+        console.log(
+          "New replacement question:",
+          newQuestion
+        );
+
+        console.log(
+          "Question number remains:",
+          questionNumberRef.current
+        );
+
+        console.log(
+          "Skipped question was NOT stored or evaluated."
+        );
+
+        setAudioStatus(
+          "New question — starting audio..."
+        );
+
+        if (
+          componentMountedRef.current &&
+          !interviewEndedRef.current
+        ) {
+
+          setTimeout(
+            async () => {
+
+              if (
+                !componentMountedRef.current ||
+                interviewEndedRef.current
+              ) {
+
+                return;
+              }
+
+              const started =
+                await startAudioService();
+
+              if (
+                started &&
+                componentMountedRef.current &&
+                !interviewEndedRef.current
+              ) {
+
+                startTranscriptPolling();
+              }
+
+            },
+            300
+          );
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Failed to generate replacement question:",
+          error
+        );
+
+        setAudioStatus(
+          error instanceof Error
+            ? error.message
+            : "Unable to generate a new question."
+        );
+
+        if (
+          componentMountedRef.current &&
+          !interviewEndedRef.current
+        ) {
+
+          setTimeout(
+            async () => {
+
+              if (
+                !componentMountedRef.current ||
+                interviewEndedRef.current
+              ) {
+                return;
+              }
+
+              const started =
+                await startAudioService();
+
+              if (
+                started &&
+                componentMountedRef.current &&
+                !interviewEndedRef.current
+              ) {
+
+                startTranscriptPolling();
+              }
+
+            },
+            300
+          );
+        }
       }
-    }
-  };
+    };
 
   // =========================================================
   // END INTERVIEW
@@ -2041,19 +1996,9 @@ const handleSkipToNextQuestion =
   const handleEndInterview =
     async () => {
 
-      /*
-       * Prevent multiple clicks while the current answer
-       * is being processed.
-       */
-
       if (isEvaluating) {
         return;
       }
-
-      /*
-       * Prevent accidentally triggering End Interview
-       * multiple times.
-       */
 
       if (endingInterviewRef.current) {
         return;
@@ -2062,10 +2007,6 @@ const handleSkipToNextQuestion =
       console.log(
         "Candidate clicked End Interview."
       );
-
-      // -------------------------------------------------------
-      // CONFIRMATION
-      // -------------------------------------------------------
 
       const confirmed =
         window.confirm(
@@ -2076,32 +2017,16 @@ const handleSkipToNextQuestion =
         return;
       }
 
-      // -------------------------------------------------------
-      // MARK INTERVIEW AS ENDING
-      // -------------------------------------------------------
-
       endingInterviewRef.current =
         true;
 
       interviewEndedRef.current =
         true;
 
-      // -------------------------------------------------------
-      // STOP TRANSCRIPT POLLING
-      // -------------------------------------------------------
-
       stopTranscriptPolling();
-
-      // -------------------------------------------------------
-      // GET CURRENT ANSWER
-      // -------------------------------------------------------
 
       const currentAnswer =
         transcriptRef.current.trim();
-
-      // -------------------------------------------------------
-      // CURRENT ANSWER EXISTS
-      // -------------------------------------------------------
 
       if (currentAnswer) {
 
@@ -2113,28 +2038,12 @@ const handleSkipToNextQuestion =
           "Evaluating final answer..."
         );
 
-        /*
-         * submitAnswer will:
-         *
-         * 1. Send current answer to backend
-         * 2. Receive score + feedback
-         * 3. Store the answer
-         * 4. Detect endingInterviewRef
-         * 5. Finalize the interview
-         *
-         * It will NOT generate another question.
-         */
-
         await submitAnswer(
           currentAnswer
         );
 
         return;
       }
-
-      // -------------------------------------------------------
-      // NO CURRENT ANSWER
-      // -------------------------------------------------------
 
       console.log(
         "No current answer. Ending interview immediately."
@@ -2207,10 +2116,6 @@ const handleSkipToNextQuestion =
           </div>
 
         </div>
-
-        {/* =================================================
-            END INTERVIEW
-        ================================================= */}
 
         <button
           className="end-interview-button"
@@ -2398,45 +2303,52 @@ const handleSkipToNextQuestion =
 
             </div>
 
-            {/* =================================================
-                SUBMIT / CONTINUE BUTTON
-            ================================================= */}
+            {!interviewCompleted && (
 
-        {!interviewCompleted && (
-          <div className="interview-action-buttons">
+              <div className="interview-action-buttons">
 
-            <button
-              type="button"
-              className="skip-question-button"
-              onClick={handleSkipToNextQuestion}
-              disabled={isEvaluating}
-            >
-              Skip Question →
-            </button>
+                <button
+                  type="button"
+                  className="skip-question-button"
+                  onClick={
+                    handleSkipToNextQuestion
+                  }
+                  disabled={
+                    isEvaluating
+                  }
+                >
+                  Skip Question →
+                </button>
 
-            <button
-              type="button"
-              className="next-question-button"
-              onClick={handleNextQuestion}
-              disabled={
-                isEvaluating ||
-                !transcript.trim()
-              }
-            >
-              {questionNumber === totalQuestions
-                ? "Submit"
-                : "Submit & Continue →"}
-                        </button>
+                <button
+                  type="button"
+                  className="next-question-button"
+                  onClick={
+                    handleNextQuestion
+                  }
+                  disabled={
+                    isEvaluating ||
+                    !transcript.trim()
+                  }
+                >
+                  {questionNumber ===
+                  totalQuestions
+                    ? "Submit"
+                    : "Submit & Continue →"}
+                </button>
+
+              </div>
+
+            )}
 
           </div>
-        )}
 
-      </div>
-    </section>
-  </main>
-</div>
+        </section>
+
+      </main>
+
+    </div>
   );
-
 };
 
 export default LiveInterview;
