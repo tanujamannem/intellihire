@@ -90,11 +90,16 @@ interface InterviewReportData {
 }
 
 /* =========================================================
-   API
+   API URLS
    ========================================================= */
 
+// Render backend
 const API_BASE_URL =
   "https://intellihire-backend-pyb0.onrender.com";
+
+// Local Windows WASAPI audio server
+const LOCAL_AUDIO_URL =
+  "http://127.0.0.1:8001";
 
 /* =========================================================
    SESSION STORAGE KEY
@@ -110,9 +115,9 @@ const REPORT_STORAGE_KEY =
 const LiveInterview: React.FC<LiveInterviewProps> = ({
   onComplete,
 }) => {
-  // =========================================================
-  // INTERVIEW DATA
-  // =========================================================
+  /* =======================================================
+     INTERVIEW DATA
+     ======================================================= */
 
   const [interviewData, setInterviewData] =
     useState<InterviewData | null>(null);
@@ -120,9 +125,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   const interviewDataRef =
     useRef<InterviewData | null>(null);
 
-  // =========================================================
-  // QUESTION
-  // =========================================================
+  /* =======================================================
+     QUESTION
+     ======================================================= */
 
   const [question, setQuestion] =
     useState("");
@@ -139,9 +144,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   const [totalQuestions, setTotalQuestions] =
     useState(10);
 
-  // =========================================================
-  // FOLLOW UP
-  // =========================================================
+  /* =======================================================
+     FOLLOW UP
+     ======================================================= */
 
   const [isFollowup, setIsFollowup] =
     useState(false);
@@ -149,9 +154,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   const isFollowupRef =
     useRef(false);
 
-  // =========================================================
-  // CANDIDATE TRANSCRIPT
-  // =========================================================
+  /* =======================================================
+     TRANSCRIPT
+     ======================================================= */
 
   const [transcript, setTranscript] =
     useState("");
@@ -159,9 +164,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   const transcriptRef =
     useRef("");
 
-  // =========================================================
-  // AUDIO STATUS
-  // =========================================================
+  /* =======================================================
+     AUDIO STATUS
+     ======================================================= */
 
   const [isListening, setIsListening] =
     useState(false);
@@ -175,18 +180,18 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   const audioStartingRef =
     useRef(false);
 
-  // =========================================================
-  // TRANSCRIPT POLLING
-  // =========================================================
+  /* =======================================================
+     TRANSCRIPT POLLING
+     ======================================================= */
 
   const transcriptTimerRef =
     useRef<ReturnType<typeof setInterval> | null>(
       null
     );
 
-  // =========================================================
-  // COMPONENT / INTERVIEW LIFECYCLE
-  // =========================================================
+  /* =======================================================
+     LIFECYCLE
+     ======================================================= */
 
   const componentMountedRef =
     useRef(false);
@@ -194,23 +199,23 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   const interviewEndedRef =
     useRef(false);
 
-  // =========================================================
-  // EARLY ENDING
-  // =========================================================
+  /* =======================================================
+     ENDING INTERVIEW
+     ======================================================= */
 
   const endingInterviewRef =
     useRef(false);
 
-  // =========================================================
-  // INTERVIEW COMPLETION
-  // =========================================================
+  /* =======================================================
+     INTERVIEW COMPLETED
+     ======================================================= */
 
   const [interviewCompleted, setInterviewCompleted] =
     useState(false);
 
-  // =========================================================
-  // EVALUATION
-  // =========================================================
+  /* =======================================================
+     EVALUATION
+     ======================================================= */
 
   const [score, setScore] =
     useState<number | null>(null);
@@ -224,9 +229,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
   const processingAnswerRef =
     useRef(false);
 
-  // =========================================================
-  // LOAD / INITIALIZE INTERVIEW DATA
-  // =========================================================
+  /* =======================================================
+     LOAD INTERVIEW DATA
+     ======================================================= */
 
   useEffect(() => {
     const saved =
@@ -270,6 +275,10 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       setTotalQuestions(
         configuredQuestionCount
       );
+
+      /* =====================================================
+         INITIALIZE REPORT STORAGE
+         ===================================================== */
 
       const existingReport =
         sessionStorage.getItem(
@@ -341,6 +350,10 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         );
       }
 
+      /* =====================================================
+         FIRST QUESTION
+         ===================================================== */
+
       const generatedQuestions =
         parsed.sampleQuestions || [];
 
@@ -361,9 +374,13 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         questionNumberRef.current =
           1;
 
-        setQuestionNumber(1);
+        setQuestionNumber(
+          1
+        );
 
-      } else if (parsed.question) {
+      } else if (
+        parsed.question
+      ) {
         setQuestion(
           parsed.question
         );
@@ -389,9 +406,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
     }
   }, []);
 
-  // =========================================================
-  // STORE ANSWER IN SESSION STORAGE
-  // =========================================================
+  /* =========================================================
+     STORE ANSWER
+     ========================================================= */
 
   const storeInterviewAnswer = (
     answerData: InterviewAnswer
@@ -484,17 +501,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
     }
   };
 
-  // =========================================================
-  // START TEAMS / SYSTEM AUDIO
-  // =========================================================
-  //
-  // IMPORTANT:
-  // There is NO browser microphone here.
-  // There is NO MediaRecorder here.
-  // The backend audio service is responsible for
-  // the Windows WASAPI loopback capture.
-  //
-  // =========================================================
+  /* =========================================================
+     START LOCAL WINDOWS WASAPI AUDIO
+     ========================================================= */
 
   const startAudioService =
     async () => {
@@ -523,21 +532,19 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         true;
 
       try {
-
         setAudioStatus(
           "Starting Teams candidate audio..."
         );
 
         const response =
           await fetch(
-            `${API_BASE_URL}/api/audio/start`,
+            `${LOCAL_AUDIO_URL}/api/audio/start`,
             {
               method: "POST",
             }
           );
 
         if (!response.ok) {
-
           const errorText =
             await response.text();
 
@@ -551,12 +558,11 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           await response.json();
 
         console.log(
-          "WASAPI audio service started:",
+          "Local WASAPI audio service started:",
           result
         );
 
         if (!result.success) {
-
           throw new Error(
             result.message ||
             "WASAPI audio service failed to start."
@@ -577,7 +583,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         return true;
 
       } catch (error) {
-
         console.error(
           "Teams audio service error:",
           error
@@ -599,15 +604,14 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         return false;
 
       } finally {
-
         audioStartingRef.current =
           false;
       }
     };
 
-  // =========================================================
-  // STOP TEAMS / SYSTEM AUDIO
-  // =========================================================
+  /* =========================================================
+     STOP LOCAL WINDOWS WASAPI AUDIO
+     ========================================================= */
 
   const stopAudioService =
     async () => {
@@ -615,7 +619,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       if (
         !audioStartedRef.current
       ) {
-
         setIsListening(
           false
         );
@@ -635,16 +638,14 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       );
 
       try {
-
         await fetch(
-          `${API_BASE_URL}/api/audio/stop`,
+          `${LOCAL_AUDIO_URL}/api/audio/stop`,
           {
             method: "POST",
           }
         );
 
       } catch (error) {
-
         console.error(
           "Failed to stop audio service:",
           error
@@ -652,9 +653,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       }
     };
 
-  // =========================================================
-  // START TRANSCRIPT POLLING
-  // =========================================================
+  /* =========================================================
+     START TRANSCRIPT POLLING
+     ========================================================= */
 
   const startTranscriptPolling =
     () => {
@@ -662,7 +663,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       if (
         transcriptTimerRef.current !== null
       ) {
-
         console.log(
           "Transcript polling already running."
         );
@@ -683,9 +683,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         );
     };
 
-  // =========================================================
-  // STOP TRANSCRIPT POLLING
-  // =========================================================
+  /* =========================================================
+     STOP TRANSCRIPT POLLING
+     ========================================================= */
 
   const stopTranscriptPolling =
     () => {
@@ -693,7 +693,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       if (
         transcriptTimerRef.current !== null
       ) {
-
         console.log(
           "Stopping transcript polling..."
         );
@@ -707,9 +706,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       }
     };
 
-  // =========================================================
-  // GET CANDIDATE TRANSCRIPT
-  // =========================================================
+  /* =========================================================
+     GET TRANSCRIPT FROM LOCAL AUDIO SERVER
+     ========================================================= */
 
   const fetchTranscript =
     async () => {
@@ -718,15 +717,13 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         !audioStartedRef.current ||
         interviewEndedRef.current
       ) {
-
         return;
       }
 
       try {
-
         const response =
           await fetch(
-            `${API_BASE_URL}/api/audio/transcript`,
+            `${LOCAL_AUDIO_URL}/api/audio/transcript`,
             {
               method: "GET",
               cache: "no-store",
@@ -734,7 +731,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           );
 
         if (!response.ok) {
-
           console.error(
             "Transcript request failed:",
             response.status
@@ -748,7 +744,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           await response.json();
 
         if (result.error) {
-
           console.error(
             "Audio service error:",
             result.error
@@ -767,7 +762,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           "";
 
         if (text.trim()) {
-
           transcriptRef.current =
             text;
 
@@ -779,7 +773,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         if (result.running) {
 
           if (!isEvaluating) {
-
             setIsListening(
               true
             );
@@ -799,7 +792,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
             audioStartedRef.current &&
             !interviewEndedRef.current
           ) {
-
             console.warn(
               "WASAPI audio service stopped unexpectedly."
             );
@@ -811,7 +803,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         }
 
       } catch (error) {
-
         console.error(
           "Transcript polling error:",
           error
@@ -819,9 +810,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       }
     };
 
-  // =========================================================
-  // INITIALIZE INTERVIEW AUDIO
-  // =========================================================
+  /* =========================================================
+     INITIALIZE AUDIO
+     ========================================================= */
 
   useEffect(() => {
 
@@ -857,7 +848,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           componentMountedRef.current &&
           !interviewEndedRef.current
         ) {
-
           startTranscriptPolling();
         }
       };
@@ -883,9 +873,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
   }, []);
 
-  // =========================================================
-  // FINALIZE INTERVIEW
-  // =========================================================
+  /* =========================================================
+     FINALIZE INTERVIEW
+     ========================================================= */
 
   const finalizeInterview =
     async () => {
@@ -899,7 +889,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       await stopAudioService();
 
       try {
-
         const stored =
           sessionStorage.getItem(
             REPORT_STORAGE_KEY
@@ -926,7 +915,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         }
 
       } catch (error) {
-
         console.error(
           "Failed to finalize report data:",
           error
@@ -953,9 +941,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       }
     };
 
-  // =========================================================
-  // SUBMIT ANSWER
-  // =========================================================
+  /* =========================================================
+     SUBMIT ANSWER
+     ========================================================= */
 
   const submitAnswer =
     async (
@@ -963,7 +951,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
     ) => {
 
       if (!finalAnswer.trim()) {
-
         setAudioStatus(
           "No answer detected."
         );
@@ -974,7 +961,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       if (
         processingAnswerRef.current
       ) {
-
         return;
       }
 
@@ -982,7 +968,6 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         interviewDataRef.current;
 
       if (!data) {
-
         setAudioStatus(
           "Interview data is unavailable."
         );
@@ -1136,9 +1121,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
             currentIsFollowup,
         });
 
-        // =====================================================
-        // EARLY END
-        // =====================================================
+        /* =====================================================
+           EARLY END
+           ===================================================== */
 
         if (
           endingInterviewRef.current
@@ -1167,9 +1152,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           return;
         }
 
-        // =====================================================
-        // FOLLOW-UP SAFETY LOGIC
-        // =====================================================
+        /* =====================================================
+           FOLLOW-UP SAFETY
+           ===================================================== */
 
         const returnedFollowupQuestion =
           (
@@ -1190,9 +1175,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
             returnedFollowupQuestion
           );
 
-        // =====================================================
-        // FINAL QUESTION
-        // =====================================================
+        /* =====================================================
+           FINAL QUESTION
+           ===================================================== */
 
         if (
           currentQuestionNumber >=
@@ -1229,9 +1214,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           return;
         }
 
-        // =====================================================
-        // BACKEND COMPLETE
-        // =====================================================
+        /* =====================================================
+           BACKEND COMPLETE
+           ===================================================== */
 
         if (
           result.action ===
@@ -1261,9 +1246,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           return;
         }
 
-        // =====================================================
-        // FOLLOW-UP
-        // =====================================================
+        /* =====================================================
+           FOLLOW-UP
+           ===================================================== */
 
         if (
           result.action ===
@@ -1305,9 +1290,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           }
         }
 
-        // =====================================================
-        // NEXT QUESTION
-        // =====================================================
+        /* =====================================================
+           NEXT QUESTION
+           ===================================================== */
 
         if (
           result.action ===
@@ -1379,9 +1364,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           }
         }
 
-        // =====================================================
-        // CLEAR OLD ANSWER
-        // =====================================================
+        /* =====================================================
+           CLEAR OLD ANSWER
+           ===================================================== */
 
         transcriptRef.current =
           "";
@@ -1397,9 +1382,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         processingAnswerRef.current =
           false;
 
-        // =====================================================
-        // START TEAMS AUDIO AGAIN
-        // =====================================================
+        /* =====================================================
+           START TEAMS AUDIO AGAIN
+           ===================================================== */
 
         if (
           componentMountedRef.current &&
@@ -1500,9 +1485,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       }
     };
 
-  // =========================================================
-  // SUBMIT / CONTINUE
-  // =========================================================
+  /* =========================================================
+     SUBMIT / CONTINUE
+     ========================================================= */
 
   const handleNextQuestion =
     () => {
@@ -1528,9 +1513,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       );
     };
 
-  // =========================================================
-  // SKIP CURRENT QUESTION
-  // =========================================================
+  /* =========================================================
+     SKIP QUESTION
+     ========================================================= */
 
   const handleSkipToNextQuestion =
     async () => {
@@ -1539,7 +1524,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         return;
       }
 
-      if (processingAnswerRef.current) {
+      if (
+        processingAnswerRef.current
+      ) {
         return;
       }
 
@@ -1761,9 +1748,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       }
     };
 
-  // =========================================================
-  // END INTERVIEW
-  // =========================================================
+  /* =========================================================
+     END INTERVIEW
+     ========================================================= */
 
   const handleEndInterview =
     async () => {
@@ -1772,7 +1759,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         return;
       }
 
-      if (endingInterviewRef.current) {
+      if (
+        endingInterviewRef.current
+      ) {
         return;
       }
 
@@ -1824,9 +1813,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
       await finalizeInterview();
     };
 
-  // =========================================================
-  // HEADER DATA
-  // =========================================================
+  /* =========================================================
+     HEADER DATA
+     ========================================================= */
 
   const candidateName =
     interviewData?.candidate?.fullName ||
@@ -1846,16 +1835,16 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
     interviewData?.candidate?.experience ||
     "";
 
-  // =========================================================
-  // RENDER
-  // =========================================================
+  /* =========================================================
+     RENDER
+     ========================================================= */
 
   return (
     <div className="live-interview-page">
 
-      {/* ===================================================
+      {/* =====================================================
           HEADER
-      =================================================== */}
+          ===================================================== */}
 
       <header className="live-interview-header">
 
@@ -1892,17 +1881,21 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
         <button
           className="end-interview-button"
           type="button"
-          onClick={handleEndInterview}
-          disabled={isEvaluating}
+          onClick={
+            handleEndInterview
+          }
+          disabled={
+            isEvaluating
+          }
         >
           End Interview
         </button>
 
       </header>
 
-      {/* ===================================================
+      {/* =====================================================
           CANDIDATE INFO
-      =================================================== */}
+          ===================================================== */}
 
       <section className="candidate-info-bar">
 
@@ -1952,15 +1945,15 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
       </section>
 
-      {/* ===================================================
+      {/* =====================================================
           MAIN
-      =================================================== */}
+          ===================================================== */}
 
       <main className="live-interview-content">
 
-        {/* =================================================
+        {/* ===================================================
             QUESTION
-        ================================================= */}
+            =================================================== */}
 
         <section className="live-section">
 
@@ -1991,9 +1984,9 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
 
         </section>
 
-        {/* =================================================
+        {/* ===================================================
             ANSWER
-        ================================================= */}
+            =================================================== */}
 
         <section className="live-section">
 
@@ -2020,8 +2013,8 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           </div>
 
           {/* =================================================
-              CANDIDATE TRANSCRIPT BOX
-          ================================================= */}
+              TRANSCRIPT
+              ================================================= */}
 
           <div className="answer-card">
 
@@ -2046,8 +2039,8 @@ const LiveInterview: React.FC<LiveInterviewProps> = ({
           </div>
 
           {/* =================================================
-              ANSWER BOTTOM
-          ================================================= */}
+              ACTIONS
+              ================================================= */}
 
           <div className="answer-bottom">
 
